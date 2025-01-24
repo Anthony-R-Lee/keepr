@@ -14,7 +14,23 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
 
   public VaultKeep Create(VaultKeep rawData)
   {
-    throw new NotImplementedException();
+    string sql = @"
+    INSERT INTO vaultkeeps(keep_id, vault_id, creator_id)
+    VALUES(@KeepId, @VaultId, @CreatorId);
+    
+    SELECT
+    vaultkeeps.*,
+    accounts.*
+    FROM vaultkeeps
+    JOIN accounts ON accounts.id = vaultkeeps.creator_id
+    WHERE vaultkeeps.id = last_insert_id();";
+
+    VaultKeep vaultKeep = _db.Query(sql, (VaultKeep vaultKeep, Profile account) =>
+    {
+      vaultKeep.CreatorId = account.Id;
+      return vaultKeep;
+    }, rawData).SingleOrDefault();
+    return vaultKeep;
   }
 
   public void Delete(int id)
