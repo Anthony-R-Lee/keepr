@@ -1,6 +1,3 @@
-using System.Threading.Tasks.Dataflow;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-
 using keepr.Interfaces;
 
 namespace keepr.Controllers;
@@ -73,6 +70,22 @@ public class KeepsController : ControllerBase
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       Keep keep = _keepsService.UpdateKeep(keepId, userInfo.Id, updateData);
       return Ok(keep);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpDelete("{keepId}")]
+  public async Task<ActionResult<string>> DeleteKeep(int keepId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string message = _keepsService.DeleteKeep(keepId, userInfo.Id);
+      return Ok(message);
     }
     catch (Exception exception)
     {

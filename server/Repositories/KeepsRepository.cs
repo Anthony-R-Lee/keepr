@@ -84,7 +84,11 @@ public class KeepsRepository : IRepository<Keep>
 
   public void Delete(int id)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM keeps WHERE id = @id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { id });
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were deleted");
   }
 
   public List<Keep> GetAll(int id)
