@@ -63,12 +63,16 @@ public class VaultsRepository : IRepository<Vault>
     if (rowsAffected != 1) throw new Exception($"{rowsAffected} were updated");
   }
 
-  public void Update(int id)
+  public void Delete(int id)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM vaults WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { id });
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were deleted");
   }
 
-  public void Delete(int id)
+  public void Update(int id)
   {
     throw new NotImplementedException();
   }

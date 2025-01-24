@@ -1,3 +1,5 @@
+using System.Net.Http;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -54,6 +56,22 @@ public class VaultsController : ControllerBase
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       Vault vault = _vaultsService.UpdateVault(vaultId, userInfo.Id, vaultData);
       return Ok(vault);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpDelete("{vaultId}")]
+  public async Task<ActionResult<string>> DeleteVault(int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      string message = _vaultsService.DeleteVault(vaultId, userInfo.Id);
+      return Ok(message);
     }
     catch (Exception exception)
     {
