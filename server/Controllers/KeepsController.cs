@@ -31,5 +31,17 @@ public class KeepsController : ControllerBase
     }
   }
 
-
+  [HttpGet]
+  public ActionResult<List<Keep>> GetAllKeeps()
+  {
+    try
+    {
+      List<Keep> keeps = _keepsService.GetAllKeeps();
+      return Ok(keeps);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 }
