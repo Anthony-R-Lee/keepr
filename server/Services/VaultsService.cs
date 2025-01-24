@@ -1,5 +1,7 @@
 
 
+using Microsoft.AspNetCore.Http.HttpResults;
+
 namespace keepr.Services;
 
 public class VaultsService
@@ -22,6 +24,20 @@ public class VaultsService
     Vault vault = _repository.GetById(vaultId);
 
     if (vault == null) throw new Exception($"Invalid vault id: {vaultId}");
+
+    return vault;
+  }
+
+  internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
+  {
+    Vault vault = GetVaultById(vaultId);
+
+    if (vault.CreatorId != userId) throw new Exception("This is not your vault to edit!");
+
+    vault.Name = vaultData.Name ?? vault.Name;
+    vault.IsPrivate = vaultData.IsPrivate ?? vault.IsPrivate;
+
+    _repository.Update(vault);
 
     return vault;
   }

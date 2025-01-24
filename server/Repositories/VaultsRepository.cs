@@ -49,11 +49,19 @@ public class VaultsRepository : IRepository<Vault>
     return vault;
   }
 
-  public List<Vault> GetAll(int id)
+  public void Update(Vault vaultData)
   {
-    throw new NotImplementedException();
-  }
+    string sql = @"
+    UPDATE vaults
+    SET
+    name = @Name,
+    is_private = @IsPrivate
+    WHERE id = @Id LIMIT 1;";
 
+    int rowsAffected = _db.Execute(sql, vaultData);
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were updated");
+  }
 
   public void Update(int id)
   {
@@ -61,6 +69,10 @@ public class VaultsRepository : IRepository<Vault>
   }
 
   public void Delete(int id)
+  {
+    throw new NotImplementedException();
+  }
+  public List<Vault> GetAll(int id)
   {
     throw new NotImplementedException();
   }
