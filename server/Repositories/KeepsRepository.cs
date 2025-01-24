@@ -50,7 +50,7 @@ public class KeepsRepository : IRepository<Keep>
     return keeps;
   }
 
-  public Keep GetById(int keepId)
+  public Keep GetById(int id)
   {
     string sql = @"
       SELECT
@@ -58,13 +58,13 @@ public class KeepsRepository : IRepository<Keep>
       accounts.*
       FROM keeps
       JOIN accounts on accounts.id = keeps.creator_id
-      WHERE keeps.id = @keepId;";
+      WHERE keeps.id = @id;";
 
     Keep keep = _db.Query(sql, (Keep keep, Profile Account) =>
     {
       keep.Creator = Account;
       return keep;
-    }, new { keepId }).SingleOrDefault();
+    }, new { id }).SingleOrDefault();
     return keep;
   }
 
