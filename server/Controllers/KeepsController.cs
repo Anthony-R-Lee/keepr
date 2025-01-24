@@ -1,3 +1,8 @@
+using System.Threading.Tasks.Dataflow;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+
+using keepr.Interfaces;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -51,6 +56,22 @@ public class KeepsController : ControllerBase
     try
     {
       Keep keep = _keepsService.GetKeepById(keepId);
+      return Ok(keep);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [Authorize]
+  [HttpPut("{keepId}")]
+  public async Task<ActionResult<Keep>> UpdateKeep(int keepId, [FromBody] Keep updateData)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Keep keep = _keepsService.UpdateKeep(keepId, userInfo.Id, updateData);
       return Ok(keep);
     }
     catch (Exception exception)

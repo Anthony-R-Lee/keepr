@@ -1,9 +1,8 @@
-
-
+using keepr.Interfaces;
 
 namespace keepr.Repositories;
 
-public class KeepsRepository
+public class KeepsRepository : IRepository<Keep>
 {
 
   public KeepsRepository(IDbConnection db)
@@ -12,7 +11,7 @@ public class KeepsRepository
   }
   private readonly IDbConnection _db;
 
-  internal Keep CreateKeep(Keep keepData)
+  public Keep Create(Keep keepData)
   {
     string sql = @"
       INSERT INTO keeps(name, description, img, creator_id)
@@ -34,7 +33,7 @@ public class KeepsRepository
     return keep;
   }
 
-  internal List<Keep> GetAllKeeps()
+  public List<Keep> GetAll()
   {
     string sql = @"
       SELECT 
@@ -51,7 +50,7 @@ public class KeepsRepository
     return keeps;
   }
 
-  internal Keep GetKeepById(int keepId)
+  public Keep GetById(int keepId)
   {
     string sql = @"
       SELECT
@@ -67,5 +66,34 @@ public class KeepsRepository
       return keep;
     }, new { keepId }).SingleOrDefault();
     return keep;
+  }
+
+  public void Update(Keep updateData)
+  {
+    string sql = @"
+    UPDATE keeps
+    SET
+    name = @Name,
+    description = @Description
+    WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, updateData);
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were updated");
+  }
+
+  public void Delete(int id)
+  {
+    throw new NotImplementedException();
+  }
+
+  public List<Keep> GetAll(int id)
+  {
+    throw new NotImplementedException();
+  }
+
+  public void Update(int id)
+  {
+    throw new NotImplementedException();
   }
 }
