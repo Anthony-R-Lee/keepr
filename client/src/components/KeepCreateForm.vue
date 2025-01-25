@@ -1,8 +1,14 @@
 <script setup>
+import { Account } from '@/models/Account';
 import { keepsService } from '@/services/KeepsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { ref } from 'vue';
+import KeepDetailModal from './KeepDetailModal.vue';
+
+defineProps({
+  account: { type: Account, required: true }
+})
 
 const editableData = ref({
   name: '',
@@ -52,6 +58,7 @@ async function createKeep() {
       </div>
     </div>
   </form>
+  <KeepDetailModal />
 </template>
 
 

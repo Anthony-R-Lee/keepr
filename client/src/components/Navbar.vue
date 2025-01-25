@@ -1,9 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from '@/AppState.js';
 
 const theme = ref(loadState('theme') || 'light')
+
+const account = computed(() => AppState.account)
 
 onMounted(() => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
@@ -28,12 +31,13 @@ function toggleTheme() {
         </div>
       </router-link>
       <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button v-if="account" class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
           <b>Create</b>
         </button>
         <ul class="dropdown-menu bg-primary">
           <li><a class="dropdown-item border-bottom border-dark" href="#" data-bs-toggle="modal"
-              data-bs-target="#keepModal">New Keep</a></li>
+              data-bs-target="#keepCreateModal">New Keep</a></li>
           <li><a class="dropdown-item" href="#">New Vault</a></li>
         </ul>
       </div>

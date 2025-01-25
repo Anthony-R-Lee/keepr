@@ -2,6 +2,8 @@
 import Navbar from './components/Navbar.vue';
 import { AppState } from './AppState.js';
 import ModalWrapper from './components/ModalWrapper.vue';
+import KeepCreateForm from './components/KeepCreateForm.vue';
+import KeepDetailModal from './components/KeepDetailModal.vue';
 
 </script>
 
@@ -15,7 +17,10 @@ import ModalWrapper from './components/ModalWrapper.vue';
   <footer>
     <!-- Made with 💖 by CodeWorks -->
   </footer>
-  <ModalWrapper />
+  <ModalWrapper modalId="keepCreateModal">
+    <KeepCreateForm />
+    <KeepDetailModal />
+  </ModalWrapper>
 </template>
 
 <style lang="scss">
