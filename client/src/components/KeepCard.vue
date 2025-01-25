@@ -30,23 +30,38 @@ async function getKeepById(keepId) {
     logger.error("GETTING KEEP BY ID", error)
   }
 }
+
+async function deleteKeep(keepId) {
+  try {
+    const confirm = await Pop.confirm(`Do you really want to delete${activeKeep.value.name}?`)
+
+    if (!confirm) return
+
+    await keepsService.deleteKeep(keepId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("DELETING KEEP", error);
+
+  }
+}
 </script>
 
 
 <template>
   <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
     class="card shadow-lg d-flex box-shadow modal-xl" :style="{ backgroundImage: `url(${keep?.img})` }">
-    <div v-if="account?.id == props.keep.creatorId" class="delete-btn">
-      <button class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+    <div v-if="account?.id == keep.creatorId" class="delete-btn">
+      <button @click="deleteKeep(activeKeep?.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
     </div>
     <div class="d-flex justify-content-between">
       <div class="title text-light text-capitalize d-flex align-items-end">
         <b>
-          {{ keep?.name }}
+          {{ keep.name }}
         </b>
       </div>
       <RouterLink to="/profile" class="" role="button">
-        <img :src="keep.creator.picture" class="profile-img" alt="">
+        <img :src="keep.creator.picture" :title="keep.creator.name" class="profile-img" alt="">
       </RouterLink>
     </div>
   </div>
