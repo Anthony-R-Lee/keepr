@@ -35,8 +35,10 @@ async function createKeep() {
 
 <template>
   <form @submit.prevent="createKeep()" class="form">
+    <button class="btn-close py-2" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
     <div class="d-flex justify-content-between gap-2">
       <div class="form-floating mb-4 col-6">
+
         <input v-model="editableData.name" type="text" class="form-control" id="name" placeholder="Name..." required
           minlength="3" maxlength="255">
         <label for="name">Name</label>
@@ -58,7 +60,6 @@ async function createKeep() {
       </div>
     </div>
   </form>
-  <KeepDetailModal />
 </template>
 
 

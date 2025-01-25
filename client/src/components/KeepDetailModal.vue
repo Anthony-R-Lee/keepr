@@ -13,28 +13,73 @@ defineProps({
 
 
 <template>
-  <div>
-    <ModalWrapper class="modal-xl" id="keepDetailModal" modalId="keepDetailModal" modalTitle="Keep Detail">
-      <div v-if="activeKeep" class="d-flex justify-content-between">
-        <div class="col-6">
-          <img class="recipe-detail-img" :src="activeKeep.img" alt="">
-        </div>
-        <div class="col-6">
-          <div class="px-4">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3 class="recipe-detail-header">{{ activeKeep.name }}</h3>
+  <ModalWrapper class="modal-dialog modal-xl bg-body" id="keepDetailModal" modalId="keepDetailModal">
+    <div v-if="activeKeep" class="d-flex justify-content-between ">
+      <div class="col-6">
+        <img class="keep-detail-img" :src="activeKeep.img" alt="">
+      </div>
+      <div class="col-6">
+        <div class="px-4 pt-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="recipe-detail-header">{{ activeKeep.name }}</h3>
 
+          </div>
+        </div>
+        <div class="text-dark d-flex justify-content-center m-3">
+          {{ activeKeep.description }}
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex ">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                PLANTS
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
             </div>
-            <p>by: <span class="text-capitalize">dkjfkdjf</span></p>
+            <div>
+              <button class="btn btn-secondary text-light">save</button>
+            </div>
           </div>
-          <div class="text-dark d-flex justify-content-center bg-body-secondary col-lg-2 text-capitalize category">
-            {{ activeKeep.description }}
-          </div>
+          <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark" to="/profile">
+            <div>
+              <img :src="activeKeep.creator.picture" alt="">
+            </div>
+            <div>
+              <b>{{ activeKeep.creator.name }}</b>
+            </div>
+          </RouterLink>
         </div>
       </div>
-    </ModalWrapper>
-  </div>
+    </div>
+  </ModalWrapper>
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.keep-detail-img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  aspect-ratio: 1/1;
+  min-height: 30dvh;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-info {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.profile-info img {
+  border-radius: 50%;
+  max-height: 2em;
+  margin-right: 5px;
+  margin: 4px;
+}
+</style>
