@@ -34,8 +34,8 @@ async function getKeepById(keepId) {
 
 
 <template>
-  <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal" role="button"
-    class="card shadow-lg d-flex box-shadow" :style="{ backgroundImage: `url(${keep?.img})` }">
+  <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
+    class="card shadow-lg d-flex box-shadow modal-xl" :style="{ backgroundImage: `url(${keep?.img})` }">
     <div v-if="account?.id == props.keep.creatorId" class="delete-btn">
       <button class="btn btn-danger"><i class="mdi mdi-close"></i></button>
     </div>
@@ -45,7 +45,7 @@ async function getKeepById(keepId) {
           {{ keep?.name }}
         </b>
       </div>
-      <RouterLink to="/profile" class="">
+      <RouterLink to="/profile" class="" role="button">
         <img :src="keep.creator.picture" class="profile-img" alt="">
       </RouterLink>
     </div>

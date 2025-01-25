@@ -4,6 +4,7 @@ import { AppState } from './AppState.js';
 import ModalWrapper from './components/ModalWrapper.vue';
 import KeepCreateForm from './components/KeepCreateForm.vue';
 import KeepDetailModal from './components/KeepDetailModal.vue';
+import EditAccountModal from './components/EditAccountModal.vue';
 
 </script>
 
@@ -20,6 +21,7 @@ import KeepDetailModal from './components/KeepDetailModal.vue';
   <ModalWrapper modalId="keepCreateModal">
     <KeepCreateForm />
     <KeepDetailModal />
+    <EditAccountModal />
   </ModalWrapper>
 </template>
 
