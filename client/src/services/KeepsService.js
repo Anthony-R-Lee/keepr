@@ -5,6 +5,7 @@ import { Keep } from "@/models/Keep.js";
 
 class KeepsService {
 async getKeeps(){
+  AppState.keeps = []
   const response = await api.get('api/keeps')
   logger.log("GOT KEEPS ", response.data)
   AppState.keeps = response.data.map(pojo => new Keep(pojo))
