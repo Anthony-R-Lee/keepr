@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace keepr.Controllers;
 
@@ -7,12 +8,14 @@ namespace keepr.Controllers;
 public class VaultsController : ControllerBase
 {
 
-  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider)
+  public VaultsController(VaultsService vaultsService, Auth0Provider auth0Provider, VaultKeepsService vaultKeepsService)
   {
     _vaultsService = vaultsService;
+    _vaultKeepsService = vaultKeepsService;
     _auth0Provider = auth0Provider;
   }
   private readonly VaultsService _vaultsService;
+  private readonly VaultKeepsService _vaultKeepsService;
   private readonly Auth0Provider _auth0Provider;
 
   [Authorize]
@@ -33,10 +36,11 @@ public class VaultsController : ControllerBase
   }
 
   [HttpGet("{vaultId}")]
-  public ActionResult<Vault> GetVaultById(int vaultId)
+  public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
   {
     try
     {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       Vault vault = _vaultsService.GetVaultById(vaultId);
       return Ok(vault);
 
@@ -72,6 +76,20 @@ public class VaultsController : ControllerBase
       Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
       string message = _vaultsService.DeleteVault(vaultId, userInfo.Id);
       return Ok(message);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+  [HttpGet("{vaultId}/keeps")]
+  public ActionResult<List<VaultKeep>> GetKeepsInPublicVault(int vaultId)
+  {
+    try
+    {
+      List<VaultKeep> vaultKeeps = _vaultKeepsService.GetKeepsInPublicVault(vaultId);
+      return Ok(vaultKeeps);
     }
     catch (Exception exception)
     {

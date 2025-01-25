@@ -33,6 +33,29 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
     return vaultKeep;
   }
 
+  internal List<VaultKeep> GetKeepsInPublicVault(int vaultId)
+  {
+    string sql = @"
+      SELECT
+      keeps.*,
+      vaultkeeps.*,
+      accounts.*
+      FROM vaultkeeps
+      JOIN keeps ON keeps.id = vaultkeeps.keep_id
+      JOIN accounts ON accounts.id = keeps.creator_id
+      WHERE vaultkeeps.vault_id = @vaultId;";
+
+    List<VaultKeep> vaultKeeps = _db.Query(sql, (VaultKeep vaultKeep, VaultKeeps vaultKeeps, Profile account) =>
+    {
+      vaultKeeps.CreatorId = vaultKeep.CreatorId;
+      vaultKeeps.VaultId = vaultKeep.VaultId;
+      vaultKeeps.Creator = account;
+      return vaultKeep;
+    }, new { vaultId }).ToList();
+
+    return vaultKeeps;
+  }
+
   public void Delete(int id)
   {
     throw new NotImplementedException();
@@ -52,4 +75,5 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
   {
     throw new NotImplementedException();
   }
+
 }

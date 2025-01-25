@@ -45,11 +45,39 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
+CREATE TABLE kept(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  keep_id INT NOT NULL,
+  vault_id INT NOT NULL,
+  creator_id VARCHAR(255) NOT NULL, 
+  FOREIGN KEY (keep_id) REFERENCES keeps(id) ON DELETE CASCADE,
+  FOREIGN KEY (vault_id) REFERENCES vaults(id) ON DELETE CASCADE,
+  FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
+)
+
+SELECT
+      vaultkeeps.*,
+      accounts.*
+      FROM vaultkeeps
+      JOIN accounts ON accounts.id = vaultkeeps.creator_id
+      WHERE vaultkeeps.vault_id = 2;
+
+SELECT
+      vaultkeeps.*,
+      keeps.*,
+      accounts.*
+      FROM vaultkeeps
+      JOIN keeps ON keeps.id = vaultkeeps.keep_id
+      JOIN accounts ON accounts.id = keeps.creator_id
+      WHERE vaultkeeps.vault_id = 39;
+
 DROP TABLE keeps;
 
 SELECT * FROM keeps;
 
-INSERT INTO keeps(name, description, img, creator_id)
+INSERT INTO vault(name, description, img, creator_id)
 VALUES("popcorn", "pop, pop, pop", "https://plus.unsplash.com/premium_photo-1676049461949-185dcea09d77?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cG9wY29ybnxlbnwwfHwwfHx8MA%3D%3D", "6758aa1356b96ff157d7af1c");
 
 UPDATE keeps
