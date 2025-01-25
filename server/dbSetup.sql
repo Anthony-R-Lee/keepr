@@ -49,11 +49,14 @@ CREATE TABLE kept(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  keep_id INT NOT NULL,
-  vault_id INT NOT NULL,
-  creator_id VARCHAR(255) NOT NULL, 
-  FOREIGN KEY (keep_id) REFERENCES keeps(id) ON DELETE CASCADE,
-  FOREIGN KEY (vault_id) REFERENCES vaults(id) ON DELETE CASCADE,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  img VARCHAR(1000) NOT NULL,
+  views INT NOT NULL DEFAULT 0,
+  kept INT NOT NULL DEFAULT 0,
+  creator_id VARCHAR(255) NOT NULL,
+  vault_keep_id INT NOT NULL,
+  FOREIGN KEY (vault_keep_id) REFERENCES vaultkeeps(id) ON DELETE CASCADE,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
@@ -73,7 +76,7 @@ SELECT
       JOIN accounts ON accounts.id = keeps.creator_id
       WHERE vaultkeeps.vault_id = 39;
 
-DROP TABLE keeps;
+DROP TABLE kept;
 
 SELECT * FROM keeps;
 
