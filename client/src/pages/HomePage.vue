@@ -26,8 +26,10 @@ async function getKeeps() {
 <template>
   <div class="container">
     <section class="row">
-      <div v-for="keep in keeps" :key="keep.id" class="col-md-3">
-        <KeepCard :keep="keep" />
+      <div class="">
+        <div v-for="keep in keeps" :key="keep.id">
+          <KeepCard :keep="keep" />
+        </div>
       </div>
     </section>
   </div>

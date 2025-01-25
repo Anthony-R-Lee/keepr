@@ -11,8 +11,9 @@ defineProps({
 
 <template>
   <div>
-    <img :src="keep.img" alt="Keep Image">
+    <img :src="keep.img" alt="">
   </div>
+
 </template>
 
 
