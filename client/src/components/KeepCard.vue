@@ -8,6 +8,7 @@ import { Modal } from 'bootstrap';
 import { computed } from 'vue';
 import { AppState } from '@/AppState';
 import KeepDetailModal from './KeepDetailModal.vue';
+import ProfilePage from '@/pages/ProfilePage.vue';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
@@ -31,10 +32,15 @@ async function getKeepById(keepId) {
 <template>
   <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal" role="button"
     class="card shadow-lg d-flex" :style="{ backgroundImage: `url(${keep?.img})` }">
-    <div class="d-flex align-items-start justify-content-between">
+    <div class="d-flex justify-content-between">
       <div class="title text-light text-capitalize d-flex align-items-end">
-        {{ keep?.name }}
+        <b>
+          {{ keep?.name }}
+        </b>
       </div>
+      <RouterLink to="/profile" class="">
+        <img :src="keep.creator.picture" class="profile-img" alt="">
+      </RouterLink>
     </div>
   </div>
 
@@ -47,31 +53,29 @@ async function getKeepById(keepId) {
 
 <style lang="scss" scoped>
 .card {
-  min-height: 20vh;
+  min-height: 10em;
   background-position: center;
   background-size: cover;
   margin: 1.75em;
   border: none;
 }
 
-.category {
-  backdrop-filter: blur(10px);
-  margin: 1em;
-  padding: 0.25em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  border-radius: 50px;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.361);
+.profile-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0.5em;
+  border-radius: 50%;
+  max-height: 3em;
 }
 
 .title {
-  backdrop-filter: blur(10px);
-  margin: 1em;
+  margin: 0.5em;
   padding: 0.5em;
   padding-left: 0.5em;
   padding-right: 0.5em;
   border-radius: 5px;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.361);
+  text-shadow: 1px 1px rgba(0, 0, 0, 0.738);
   position: absolute;
   bottom: 0;
   width: 90%;
