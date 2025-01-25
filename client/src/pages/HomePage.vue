@@ -1,8 +1,12 @@
 <script setup>
+import { AppState } from '@/AppState';
+import KeepCard from '@/components/KeepCard.vue';
 import { keepsService } from '@/services/KeepsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+
+const keeps = computed(() => AppState.keeps)
 
 onMounted(() => {
   getKeeps()
@@ -20,7 +24,12 @@ async function getKeeps() {
 </script>
 
 <template>
-  <div>
+  <div class="container">
+    <section class="row">
+      <div v-for="keep in keeps" :key="keep.id" class="col-md-3">
+        <KeepCard :keep="keep" />
+      </div>
+    </section>
   </div>
 </template>
 
