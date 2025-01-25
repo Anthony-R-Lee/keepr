@@ -12,7 +12,11 @@ import ProfilePage from '@/pages/ProfilePage.vue';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
-defineProps({
+const account = computed(() => AppState.account)
+
+
+
+const props = defineProps({
   keep: { type: Keep, required: true }
 })
 
@@ -31,7 +35,10 @@ async function getKeepById(keepId) {
 
 <template>
   <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal" role="button"
-    class="card shadow-lg d-flex" :style="{ backgroundImage: `url(${keep?.img})` }">
+    class="card shadow-lg d-flex box-shadow" :style="{ backgroundImage: `url(${keep?.img})` }">
+    <div v-if="account?.id == props.keep.creatorId" class="delete-btn">
+      <button class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+    </div>
     <div class="d-flex justify-content-between">
       <div class="title text-light text-capitalize d-flex align-items-end">
         <b>
@@ -58,6 +65,15 @@ async function getKeepById(keepId) {
   background-size: cover;
   margin: 1.75em;
   border: none;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: -0.5em;
+  border-radius: 100em;
+  max-height: 10px;
 }
 
 .profile-img {
