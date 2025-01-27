@@ -24,9 +24,6 @@ onMounted(() => {
   getUsersKeep()
 })
 
-watch(route, () => {
-  getUsersVault()
-})
 
 async function getUsersVault() {
   try {
@@ -68,9 +65,9 @@ async function getProfileById() {
     <div v-if="account">
       <div>
 
-        <img class="rounded cover-img" :src="profile.coverImg" alt="" />
-        <img class="rounded profile-img" :src="profile.picture" alt="" />
-        <h1> {{ profile.name }}</h1>
+        <img class="rounded cover-img" :src="profile?.coverImg" alt="" />
+        <img class="rounded profile-img" :src="profile?.picture" alt="" />
+        <h1> {{ profile?.name }}</h1>
         <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
       </div>
       <div>

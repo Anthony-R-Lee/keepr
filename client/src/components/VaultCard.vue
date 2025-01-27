@@ -16,17 +16,19 @@ defineProps({
 
 
 <template>
-  <div v-if="vault" :to="{ name: 'Vault' }" class="card shadow-lg box-shadow"
-    :style="{ backgroundImage: `url(${vault?.img})` }">
-    <div>
-      <div class="justify-content-between bg-img">
-        <div class="title text-light text-capitalize d-flex align-items-end">
-          <b>
-            {{ vault.name }}
-          </b>
+  <div v-if="vault" class="card shadow-lg box-shadow" :style="{ backgroundImage: `url(${vault?.img})` }">
+    <RouterLink :to="{ name: 'Vault', params: { vaultId: vault.id } }">
+
+      <div>
+        <div class="justify-content-between bg-img">
+          <div class="title text-light text-capitalize d-flex align-items-end">
+            <b>
+              {{ vault.name }}
+            </b>
+          </div>
         </div>
       </div>
-    </div>
+    </RouterLink>
   </div>
 </template>
 

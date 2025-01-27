@@ -21,10 +21,17 @@ import VaultCreateForm from './components/VaultCreateForm.vue';
   </footer>
   <ModalWrapper modalId="keepCreateModal">
     <KeepCreateForm />
-    <KeepDetailModal />
+  </ModalWrapper>
+  <ModalWrapper modalId="keepDetailModal">
+    <!-- <KeepDetailModal /> -->
+  </ModalWrapper>
+  <ModalWrapper modalId="editAccountModal">
     <EditAccountModal />
+  </ModalWrapper>
+  <ModalWrapper modalId="vaultCreateModal">
     <VaultCreateForm />
   </ModalWrapper>
+
 </template>
 
 <style lang="scss">

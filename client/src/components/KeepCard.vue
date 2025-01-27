@@ -51,15 +51,15 @@ async function deleteKeep(keepId) {
 
 
 <template>
-  <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
-    class="card shadow-lg box-shadow modal-xl" :style="{ backgroundImage: `url(${keep?.img})` }">
-    <div class="masonry">
+  <div v-if="keep" class="card shadow-lg box-shadow" :style="{ backgroundImage: `url(${keep?.img})` }">
+    <div>
 
       <div v-if="account?.id == keep.creatorId" class="delete-btn">
         <button @click="deleteKeep(activeKeep?.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
-        <div class="title text-light text-capitalize d-flex align-items-end">
+        <div @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
+          class="title text-light text-capitalize d-flex align-items-end">
           <b>
             {{ keep.name }}
           </b>
@@ -70,8 +70,7 @@ async function deleteKeep(keepId) {
       </div>
     </div>
   </div>
-
-  <ModalWrapper id="keepDetailModal" modalId="keepDetailModal">
+  <ModalWrapper class="modal-xl" id="keepDetailModal" modalId="keepDetailModal">
 
     <KeepDetailModal />
   </ModalWrapper>
