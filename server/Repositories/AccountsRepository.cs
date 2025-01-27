@@ -1,3 +1,4 @@
+
 namespace keepr.Repositories;
 
 public class AccountsRepository
@@ -32,16 +33,33 @@ public class AccountsRepository
     return newAccount;
   }
 
-  internal Account Edit(Account update)
+  // internal Account Edit(Account update)
+  // {
+  //   string sql = @"
+  //           UPDATE accounts
+  //           SET 
+  //             name = @Name,
+  //             picture = @Picture
+  //           WHERE id = @Id;";
+  //   _db.Execute(sql, update);
+  //   return update;
+  // }
+
+  internal void EditAccount(Account updateData)
   {
     string sql = @"
-            UPDATE accounts
-            SET 
-              name = @Name,
-              picture = @Picture
-            WHERE id = @Id;";
-    _db.Execute(sql, update);
-    return update;
+      UPDATE accounts
+      SET
+      name = @Name,
+      cover_img = @CoverImg,
+      picture = @Picture
+      WHERE id = @Id LIMIT 1;
+      ";
+
+    int rowsAffected = _db.Execute(sql, updateData);
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were edited!");
+
   }
 }
 
