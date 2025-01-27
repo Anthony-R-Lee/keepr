@@ -14,8 +14,8 @@ public class VaultsRepository : IRepository<Vault>
   public Vault Create(Vault rawData)
   {
     string sql = @"
-    INSERT INTO vaults(name, description, img, creator_id)
-    VALUES(@Name, @Description, @Img, @CreatorId);
+    INSERT INTO vaults(name, description, img, is_private, creator_id)
+    VALUES(@Name, @Description, @Img, @IsPrivate, @CreatorId);
 
     SELECT 
     vaults.*,

@@ -29,10 +29,15 @@ CREATE TABLE vaults(
   name VARCHAR(255) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   img VARCHAR(1000) NOT NULL,
-  is_private BOOLEAN NOT NULL DEFAULT false,
+  is_private BOOLEAN NOT NULL,
   creator_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
+
+DROP TABLE vaults;
+
+ALTER TABLE vaults ADD COLUMN is_private BOOLEAN DEFAULT true; 
+
 
 CREATE TABLE vaultkeeps(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -45,6 +50,16 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (vault_id) REFERENCES vaults(id) ON DELETE CASCADE,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
+
+    INSERT INTO vaults(name, description, img, is_private, creator_id)
+    VALUES("pork chop 2", "i love pork chops", "https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&h=400&q=60", true, "6758a99b25f750aecd7e2ece");
+
+    SELECT 
+    vaults.*,
+    accounts.*
+    FROM vaults
+    JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = LAST_INSERT_ID();
 
       SELECT 
       vaults.*,
