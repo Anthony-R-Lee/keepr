@@ -71,7 +71,7 @@ async function deleteKeep(keepId) {
     </div>
   </div>
 
-  <ModalWrapper id="keepDetailModal" modalId="keepDetailModal" modalTitle="Keep Detail">
+  <ModalWrapper id="keepDetailModal" modalId="keepDetailModal">
 
     <KeepDetailModal />
   </ModalWrapper>

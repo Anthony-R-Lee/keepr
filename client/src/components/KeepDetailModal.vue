@@ -3,11 +3,12 @@ import { Keep } from '@/models/Keep';
 import KeepCard from './KeepCard.vue';
 import { computed } from 'vue';
 import { AppState } from '@/AppState';
+import ModalWrapper from './ModalWrapper.vue';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
 defineProps({
-  keep: { type: Keep, required: true }
+  keep: { type: Keep }
 })
 </script>
 

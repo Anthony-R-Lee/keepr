@@ -5,7 +5,7 @@ import KeepCreateForm from './KeepCreateForm.vue';
 
 defineProps({
   modalId: { type: String, required: true },
-  modalTitle: { type: String, required: true },
+  modalTitle: { type: String },
 })
 </script>
 

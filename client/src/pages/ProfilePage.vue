@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import KeepCard from '@/components/KeepCard.vue';
 import VaultCard from '@/components/VaultCard.vue';
 import { profilesService } from '@/services/ProfilesService';
 import { logger } from '@/utils/Logger';
@@ -11,7 +12,7 @@ const route = useRoute()
 
 const account = computed(() => AppState.account)
 
-const keeps = computed(() => AppState.keeps)
+const keeps = computed(() => AppState.profileKeeps)
 
 const profile = computed(() => AppState.activeProfile)
 
@@ -20,6 +21,7 @@ const vaults = computed(() => AppState.profileVaults)
 onMounted(() => {
   getProfileById()
   getUsersVault()
+  getUsersKeep()
 })
 
 watch(route, () => {
@@ -34,6 +36,17 @@ async function getUsersVault() {
   catch (error) {
     Pop.meow(error);
     logger.error("GETTING USERS VAULT", error)
+  }
+}
+
+async function getUsersKeep() {
+  try {
+    const profileId = route.params.profileId
+    await profilesService.GetUsersKeep(profileId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING USERS KEEP", error)
   }
 }
 
@@ -62,7 +75,7 @@ async function getProfileById() {
       </div>
       <div>
 
-        <div class="col-md-7 justify-content-center text-start d-flex">
+        <div class="col-md-7 justify-content-center text-start d-flex py-3">
           <h1>Vaults</h1>
         </div>
         <div class="masonry mx-5 px-5">
@@ -70,8 +83,13 @@ async function getProfileById() {
             <VaultCard :vault="vault" />
           </div>
         </div>
-        <div class="col-md-7 justify-content-center text-start d-flex">
+        <div class="col-md-7 justify-content-center text-start d-flex py-3">
           <h1>Keeps</h1>
+        </div>
+        <div class="masonry mx-5 px-5">
+          <div v-for="keep in keeps" :key="keep.id">
+            <KeepCard :keep="keep" />
+          </div>
         </div>
       </div>
     </div>

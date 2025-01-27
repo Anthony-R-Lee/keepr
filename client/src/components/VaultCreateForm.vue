@@ -8,7 +8,7 @@ import { vaultsService } from '@/services/VaultsService';
 
 
 defineProps({
-  account: { type: Account, required: true }
+  account: { type: Account }
 })
 
 const editableData = ref({

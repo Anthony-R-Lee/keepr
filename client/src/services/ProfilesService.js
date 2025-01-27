@@ -3,6 +3,7 @@ import { api } from "./AxiosService.js"
 import { logger } from "@/utils/Logger.js"
 import { Profile } from "@/models/Profile.js"
 import { Vault } from "@/models/Vault.js"
+import { Keep } from "@/models/Keep.js"
 
 class ProfilesService{
   async getProfileById(profileId) {
@@ -15,9 +16,15 @@ class ProfilesService{
     AppState.profileVaults = []
     const response = await api.get(`api/profiles/${profileId}/vaults`)
     logger.log("GOT USER VAULTS", response.data)
-    AppState.profileVaults = response.data.map(data => new Vault(data))
+    AppState.profileVaults = response.data.map(pojo => new Vault(pojo))
   }
-
+  
+  async GetUsersKeep(profileId) {
+    AppState.profileKeeps = []
+    const response = await api.get(`api/profiles/${profileId}/keeps`)
+    logger.log("GOT USER KEEPS", response.data)
+      AppState.profileKeeps = response.data.map(pojo => new Keep(pojo) )
+  }
 }
 
 export const profilesService = new ProfilesService()

@@ -8,7 +8,7 @@ import KeepDetailModal from './KeepDetailModal.vue';
 import ModalWrapper from './ModalWrapper.vue';
 
 defineProps({
-  account: { type: Account, required: true }
+  account: { type: Account }
 })
 
 const editableData = ref({
