@@ -9,10 +9,11 @@ public class AccountController : ControllerBase
   private readonly Auth0Provider _auth0Provider;
   private readonly VaultsService _vaultsService;
 
-  public AccountController(AccountService accountService, Auth0Provider auth0Provider)
+  public AccountController(AccountService accountService, Auth0Provider auth0Provider, VaultsService vaultsService)
   {
     _accountService = accountService;
     _auth0Provider = auth0Provider;
+    _vaultsService = vaultsService;
   }
 
   [HttpGet]
@@ -29,7 +30,7 @@ public class AccountController : ControllerBase
     }
   }
 
-  [HttpGet("/vaults")]
+  [HttpGet("vaults")]
   public ActionResult<List<Vault>> GetMyVaults()
   {
     try

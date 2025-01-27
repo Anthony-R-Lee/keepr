@@ -80,8 +80,7 @@ public class VaultsRepository : IRepository<Vault>
       accounts.* 
       FROM vaults
       JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaults.creator_id = accounts.id;
-      ";
+      WHERE vaults.creator_id = accounts.id;";
 
     List<Vault> vaults = _db.Query(sql, (Vault vault, Profile account) =>
     {

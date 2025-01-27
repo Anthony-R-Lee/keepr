@@ -48,7 +48,9 @@ CREATE TABLE vaultkeeps(
 
       SELECT 
       vaults.*,
-      accounts.* 
+      accounts.*
       FROM vaults
       JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaults.creator_id = "6758aa1356b96ff157d7af1c";
+      WHERE vaults.creator_id = "6758a99b25f750aecd7e2ece";
+      -- 6758aa1356b96ff157d7af1c
+
