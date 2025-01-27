@@ -1,14 +1,52 @@
 <script setup>
 import { AppState } from '@/AppState';
-import { computed } from 'vue';
+import VaultCard from '@/components/VaultCard.vue';
+import { profilesService } from '@/services/ProfilesService';
+import { logger } from '@/utils/Logger';
+import Pop from '@/utils/Pop';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-
+const route = useRoute()
 
 const account = computed(() => AppState.account)
 
 const keeps = computed(() => AppState.keeps)
-const vaults = computed(() => AppState.vaults)
 
+const profile = computed(() => AppState.activeProfile)
+
+const vaults = computed(() => AppState.profileVaults)
+
+onMounted(() => {
+  getProfileById()
+  getUsersVault()
+})
+
+watch(route, () => {
+  getUsersVault()
+})
+
+async function getUsersVault() {
+  try {
+    const profileId = route.params.profileId
+    await profilesService.GetUsersVault(profileId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING USERS VAULT", error)
+  }
+}
+
+async function getProfileById() {
+  try {
+    const profileId = route.params.profileId
+    await profilesService.getProfileById(profileId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING PROFILE BY ID", error)
+  }
+}
 </script>
 
 
@@ -17,15 +55,20 @@ const vaults = computed(() => AppState.vaults)
     <div v-if="account">
       <div>
 
-        <img class="rounded cover-img" :src="account.coverImg" alt="" />
-        <img class="rounded profile-img" :src="account.picture" alt="" />
-        <h1> {{ account.name }}</h1>
+        <img class="rounded cover-img" :src="profile.coverImg" alt="" />
+        <img class="rounded profile-img" :src="profile.picture" alt="" />
+        <h1> {{ profile.name }}</h1>
         <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
       </div>
       <div>
 
         <div class="col-md-7 justify-content-center text-start d-flex">
           <h1>Vaults</h1>
+        </div>
+        <div class="masonry mx-5 px-5">
+          <div v-for="vault in vaults" :key="vault.id">
+            <VaultCard :vault="vault" />
+          </div>
         </div>
         <div class="col-md-7 justify-content-center text-start d-flex">
           <h1>Keeps</h1>
@@ -40,6 +83,10 @@ const vaults = computed(() => AppState.vaults)
 
 
 <style lang="scss" scoped>
+.masonry {
+  column-count: 4;
+}
+
 .profile-img {
   max-width: 100px;
   max-height: 5em;

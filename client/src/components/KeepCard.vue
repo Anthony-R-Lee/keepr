@@ -9,12 +9,14 @@ import { computed } from 'vue';
 import { AppState } from '@/AppState';
 import KeepDetailModal from './KeepDetailModal.vue';
 import ProfilePage from '@/pages/ProfilePage.vue';
+import { useRoute } from 'vue-router';
+import { profilesService } from '@/services/ProfilesService';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
 const account = computed(() => AppState.account)
 
-
+const route = useRoute()
 
 const props = defineProps({
   keep: { type: Keep, required: true }
@@ -62,7 +64,7 @@ async function deleteKeep(keepId) {
             {{ keep.name }}
           </b>
         </div>
-        <RouterLink to="/profile" class="" role="button">
+        <RouterLink :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" class="" role="button">
           <img :src="keep.creator.picture" :title="keep.creator.name" class="profile-img" alt="">
         </RouterLink>
       </div>
