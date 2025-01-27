@@ -33,7 +33,7 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
     return vaultKeep;
   }
 
-  internal List<VaultKeep> GetKeepsInPublicVault(int vaultId)
+  internal List<VaultKept> GetKeepsInPublicVault(int vaultId)
   {
     string sql = @"
       SELECT
@@ -45,15 +45,20 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
       JOIN accounts ON accounts.id = keeps.creator_id
       WHERE vaultkeeps.vault_id = @vaultId;";
 
-    List<VaultKeep> vaultKeeps = _db.Query(sql, (VaultKeep vaultKeep, VaultKeeps vaultKeeps, Profile account) =>
+    List<VaultKept> vaultKepts = _db.Query(sql, (Keep keep, VaultKept vaultKept, Profile account) =>
     {
-      vaultKeeps.CreatorId = vaultKeep.CreatorId;
-      vaultKeeps.VaultId = vaultKeep.VaultId;
-      vaultKeeps.Creator = account;
-      return vaultKeep;
+      vaultKept.CreatorId = keep.CreatorId;
+      vaultKept.VaultKeepId = vaultKept.Id;
+      vaultKept.Name = keep.Name;
+      vaultKept.Description = keep.Description;
+      vaultKept.Img = keep.Img;
+      vaultKept.Id = keep.Id;
+      vaultKept.Kept = keep.Kept;
+      vaultKept.Creator = account;
+      return vaultKept;
     }, new { vaultId }).ToList();
 
-    return vaultKeeps;
+    return vaultKepts;
   }
 
   public void Delete(int id)

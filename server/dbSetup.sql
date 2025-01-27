@@ -45,20 +45,23 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
-CREATE TABLE kept(
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  name VARCHAR(255) NOT NULL,
-  description VARCHAR(1000) NOT NULL,
-  img VARCHAR(1000) NOT NULL,
-  views INT NOT NULL DEFAULT 0,
-  kept INT NOT NULL DEFAULT 0,
-  creator_id VARCHAR(255) NOT NULL,
-  vault_keep_id INT NOT NULL,
-  FOREIGN KEY (vault_keep_id) REFERENCES vaultkeeps(id) ON DELETE CASCADE,
-  FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
-)
+      SELECT
+      keeps.*,
+      vaultkeeps.*,
+      accounts.*
+      FROM vaultkeeps
+      JOIN keeps ON keeps.id = vaultkeeps.keep_id
+      JOIN accounts ON accounts.id = keeps.creator_id
+      WHERE vaultkeeps.vault_id = 8;
+
+      SELECT
+      vaults.*,
+      vaultkeeps.*,
+      accounts.*
+      FROM vaultkeeps
+      JOIN vaults ON vaults.id = vaultkeeps.keep_id
+      JOIN accounts ON accounts.id = vaults.creator_id
+      WHERE vaultkeeps.vault_id = 8;
 
 SELECT
       vaultkeeps.*,
@@ -66,6 +69,8 @@ SELECT
       FROM vaultkeeps
       JOIN accounts ON accounts.id = vaultkeeps.creator_id
       WHERE vaultkeeps.vault_id = 2;
+INSERT INTO vault_kept(keep_id, vault_id, creator_id)
+VALUES();
 
 SELECT
       vaultkeeps.*,
@@ -76,12 +81,10 @@ SELECT
       JOIN accounts ON accounts.id = keeps.creator_id
       WHERE vaultkeeps.vault_id = 39;
 
-DROP TABLE kept;
+DROP TABLE vault_kept;
 
 SELECT * FROM keeps;
 
-INSERT INTO vault(name, description, img, creator_id)
-VALUES("popcorn", "pop, pop, pop", "https://plus.unsplash.com/premium_photo-1676049461949-185dcea09d77?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cG9wY29ybnxlbnwwfHwwfHx8MA%3D%3D", "6758aa1356b96ff157d7af1c");
 
 UPDATE keeps
     SET

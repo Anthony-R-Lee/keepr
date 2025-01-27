@@ -88,7 +88,7 @@ public class VaultsController : ControllerBase
   {
     try
     {
-      List<VaultKeep> vaultKeeps = _vaultKeepsService.GetKeepsInPublicVault(vaultId);
+      List<VaultKept> vaultKeeps = _vaultKeepsService.GetKeepsInPublicVault(vaultId);
       return Ok(vaultKeeps);
     }
     catch (Exception exception)

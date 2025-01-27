@@ -23,9 +23,9 @@ public class VaultKeepsService
     return vaultkeep;
   }
 
-  internal List<VaultKeep> GetKeepsInPublicVault(int vaultId)
+  internal List<VaultKept> GetKeepsInPublicVault(int vaultId)
   {
-    List<VaultKeep> vaultKeeps = _repository.GetKeepsInPublicVault(vaultId);
+    List<VaultKept> vaultKeeps = _repository.GetKeepsInPublicVault(vaultId);
     return vaultKeeps;
   }
 }
