@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS accounts(
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   name VARCHAR(255) COMMENT 'User Name',
-  email VARCHAR(255) UNIQUE COMMENT 'User Email',
   picture VARCHAR(255) COMMENT 'User Picture'
+  email VARCHAR(255) UNIQUE COMMENT 'User Email',
 ) default charset utf8mb4 COMMENT '';
 
 ALTER TABLE accounts ADD COLUMN cover_img VARCHAR(1000)
@@ -44,6 +44,35 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (vault_id) REFERENCES vaults(id) ON DELETE CASCADE,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
+
+CREATE TABLE profiles(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  name VARCHAR(255) NOT NULL,
+  picture VARCHAR(1000) NOT NULL,
+  cover_img VARCHAR(1000),
+  creator_id VARCHAR(255) NOT NULL, 
+  FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
+)
+
+INSERT INTO profiles(creator_id, name, picture)
+VALUES("6758a99b25f750aecd7e2ece", "jeff", "https://images.unsplash.com/photo-1614796918928-c92c79693e94?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxtb3xlbnwwfHwwfHx8MA%3D%3D");
+
+DROP TABLE profiles;
+
+
+      SELECT
+      *
+      FROM profiles
+      WHERE creator_id = "6758a99b25f750aecd7e2ece";
+
+      SELECT
+      profiles.*,
+      accounts.*
+      FROM profiles
+      JOIN accounts on accounts.id = profiles.id
+      WHERE profiles.id = 3;
 
       SELECT
       keeps.*,
