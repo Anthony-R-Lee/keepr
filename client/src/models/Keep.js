@@ -1,5 +1,4 @@
 import { APIItem } from "./APIItem.js";
-import { Kept } from "./Kept.js";
 import { Profile } from "./Profile.js";
 
 export class Keep extends APIItem{

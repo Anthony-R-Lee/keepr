@@ -38,14 +38,13 @@ function toggleTheme() {
         <ul class="dropdown-menu bg-primary">
           <li><a class="dropdown-item border-bottom border-dark" href="#" data-bs-toggle="modal"
               data-bs-target="#keepCreateModal">New Keep</a></li>
-          <li><a class="dropdown-item" href="#">New Vault</a></li>
+          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#vaultCreateModal">New Vault</a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="d-flex justify-content-center align-items-center col-md-8 title-box">
-      <p>the</p>
-      <p>keepr</p>
-      <p>co.</p>
+      <b class="border border-dark rounded-3 p-2">the keepr co.</b>
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">

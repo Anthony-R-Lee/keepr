@@ -36,29 +36,27 @@ async function editAccount() {
 
 
 <template>
-  <ModalWrapper id="editAccountModal" modalId="editAccountModal" class="modal-xl">
-    <div class="modal-dialog modal-xl bg-body">
-      <div v-if="accountData">
-        <form @submit.prevent="editAccount()" class="row text-start">
-          <div class="mb-3 col-4">
-            <label for="account-name">Name</label>
-            <input v-model="accountData.name" type="text" id="account-name" name="account-name" class="form-control"
-              maxlength="100" required>
-          </div>
-          <div class="mb-3 col-4">
-            <label for="account-coverImg">Cover Image</label>
-            <input v-model="accountData.coverImg" type="text" id="account-coverImg" name="account-coverImg"
-              class="form-control" maxlength="500">
-          </div>
-          <div class="mb-3 col-4">
-            <label for="account-picture">Profile Picture</label>
-            <input v-model="accountData.picture" type="text" id="account-picture" name="account-picture"
-              class="form-control" maxlength="500">
-          </div>
-        </form>
-      </div>
+  <div class="modal-dialog modal-xl bg-body " id="editAccountModal" modalId="editAccountModal">
+    <div v-if="accountData">
+      <form @submit.prevent="editAccount()" class="row text-start">
+        <div class="mb-3 col-4">
+          <label for="account-name">Name</label>
+          <input v-model="accountData.name" type="text" id="account-name" name="account-name" class="form-control"
+            maxlength="100" required>
+        </div>
+        <div class="mb-3 col-4">
+          <label for="account-coverImg">Cover Image</label>
+          <input v-model="accountData.coverImg" type="text" id="account-coverImg" name="account-coverImg"
+            class="form-control" maxlength="500">
+        </div>
+        <div class="mb-3 col-4">
+          <label for="account-picture">Profile Picture</label>
+          <input v-model="accountData.picture" type="text" id="account-picture" name="account-picture"
+            class="form-control" maxlength="500">
+        </div>
+      </form>
     </div>
-  </ModalWrapper>
+  </div>
 </template>
 
 

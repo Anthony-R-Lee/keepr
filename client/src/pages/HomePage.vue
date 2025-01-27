@@ -28,8 +28,7 @@ async function getKeeps() {
 
 <template>
   <div class="container">
-
-    <div class="col-md-3">
+    <div class="masonry mt-5">
       <div v-for="keep in keeps" :key="keep.id">
         <KeepCard :keep="keep" />
       </div>
@@ -38,4 +37,8 @@ async function getKeeps() {
   <KeepDetailModal />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.masonry {
+  column-count: 4;
+}
+</style>

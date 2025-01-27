@@ -10,5 +10,5 @@ public class Keep : RepoItem<int>
   public int Views { get; set; }
   [MaxLength(255)] public string CreatorId { get; set; }
   public Profile Creator { get; set; }
-  public Kept Kept { get; set; }
+  public int Kept { get; set; }
 }

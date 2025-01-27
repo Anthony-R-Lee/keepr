@@ -50,23 +50,26 @@ async function deleteKeep(keepId) {
 
 <template>
   <div v-if="keep" @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
-    class="card shadow-lg d-flex box-shadow modal-xl" :style="{ backgroundImage: `url(${keep?.img})` }">
-    <div v-if="account?.id == keep.creatorId" class="delete-btn">
-      <button @click="deleteKeep(activeKeep?.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
-    </div>
-    <div class="d-flex justify-content-between">
-      <div class="title text-light text-capitalize d-flex align-items-end">
-        <b>
-          {{ keep.name }}
-        </b>
+    class="card shadow-lg box-shadow modal-xl" :style="{ backgroundImage: `url(${keep?.img})` }">
+    <div class="masonry">
+
+      <div v-if="account?.id == keep.creatorId" class="delete-btn">
+        <button @click="deleteKeep(activeKeep?.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
-      <RouterLink to="/profile" class="" role="button">
-        <img :src="keep.creator.picture" :title="keep.creator.name" class="profile-img" alt="">
-      </RouterLink>
+      <div class="justify-content-between bg-img">
+        <div class="title text-light text-capitalize d-flex align-items-end">
+          <b>
+            {{ keep.name }}
+          </b>
+        </div>
+        <RouterLink to="/profile" class="" role="button">
+          <img :src="keep.creator.picture" :title="keep.creator.name" class="profile-img" alt="">
+        </RouterLink>
+      </div>
     </div>
   </div>
 
-  <ModalWrapper modalId="keepDetailModal" modalTitle="Keep Detail">
+  <ModalWrapper id="keepDetailModal" modalId="keepDetailModal" modalTitle="Keep Detail">
 
     <KeepDetailModal />
   </ModalWrapper>
@@ -78,8 +81,24 @@ async function deleteKeep(keepId) {
   min-height: 10em;
   background-position: center;
   background-size: cover;
-  margin: 1.75em;
+  // margin: 1.75em;
   border: none;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+
+  .bg-img {
+    width: 100%;
+  }
+
+  .profile-img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0.5em;
+    border-radius: 50%;
+    max-height: 3em;
+  }
 }
 
 .delete-btn {
@@ -89,15 +108,6 @@ async function deleteKeep(keepId) {
   margin: -0.5em;
   border-radius: 100em;
   max-height: 10px;
-}
-
-.profile-img {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0.5em;
-  border-radius: 50%;
-  max-height: 3em;
 }
 
 .title {
