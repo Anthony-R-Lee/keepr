@@ -61,9 +61,21 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
     return vaultKepts;
   }
 
+  internal VaultKeep GetVaultKeepById(int vaultKeepId)
+  {
+    string sql = "SELECT * FROM vaultkeeps WHERE id = @vaultKeepId;";
+
+    VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { vaultKeepId }).SingleOrDefault();
+
+    return vaultKeep;
+  }
   public void Delete(int id)
   {
-    throw new NotImplementedException();
+    string sql = "DELETE FROM vaultkeeps WHERE id = @id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, new { id });
+
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were deleted");
   }
 
   public List<VaultKeep> GetAll(int id)

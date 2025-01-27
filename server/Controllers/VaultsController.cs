@@ -84,7 +84,7 @@ public class VaultsController : ControllerBase
   }
 
   [HttpGet("{vaultId}/keeps")]
-  public ActionResult<List<VaultKeep>> GetKeepsInPublicVault(int vaultId)
+  public ActionResult<List<VaultKept>> GetKeepsInPublicVault(int vaultId)
   {
     try
     {
