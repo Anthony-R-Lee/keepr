@@ -1,9 +1,13 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { Vault } from '@/models/Vault';
+import { vaultsService } from '@/services/VaultsService';
+import { logger } from '@/utils/Logger';
+import Pop from '@/utils/Pop';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-
+const route = useRoute()
 
 const profileVaults = computed(() => AppState.profileVaults)
 
@@ -12,6 +16,7 @@ const account = computed(() => AppState.account)
 defineProps({
   vault: { type: Vault, required: true }
 })
+
 </script>
 
 

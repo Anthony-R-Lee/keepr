@@ -3,6 +3,7 @@ import { AppState } from '@/AppState';
 import KeepCard from '@/components/KeepCard.vue';
 import VaultCard from '@/components/VaultCard.vue';
 import { profilesService } from '@/services/ProfilesService';
+import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed, onMounted, watch } from 'vue';
@@ -62,7 +63,7 @@ async function getProfileById() {
 
 <template>
   <div class="about text-center">
-    <div v-if="account">
+    <div v-if="profile">
       <div>
 
         <img class="rounded cover-img" :src="profile?.coverImg" alt="" />

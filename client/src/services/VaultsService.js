@@ -5,11 +5,16 @@ import { Vault } from "@/models/Vault.js"
 
 class VaultsService{
   async createVault(vaultData) {
-      const response = await api.post('api/vaults', vaultData)
+    const response = await api.post('api/vaults', vaultData)
       logger.log("CREATED VAULT", response.data)
       const keep = new Vault(response.data)
       AppState.vaults.unshift(keep)
-  }
+    }
+
+    async getVaultById(vaultId) {
+      const response = await api.get(`api/vaults/${vaultId}`)
+      logger.log("GOT VAULT BY ID", response.data)
+    }
 
 }
 
