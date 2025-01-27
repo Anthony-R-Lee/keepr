@@ -18,4 +18,13 @@ public class ProfilesService
 
     return profile;
   }
+
+  internal List<Keep> GetUserKeeps(string profileId)
+  {
+    List<Keep> keeps = _repository.GetUserKeeps(profileId);
+
+    if (keeps == null) throw new Exception($"No profile at id: {profileId}!");
+
+    return keeps;
+  }
 }

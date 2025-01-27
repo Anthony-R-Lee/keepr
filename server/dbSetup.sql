@@ -45,77 +45,16 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
-CREATE TABLE profiles(
-  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  name VARCHAR(255) NOT NULL,
-  picture VARCHAR(1000) NOT NULL,
-  cover_img VARCHAR(1000),
-  creator_id VARCHAR(255) NOT NULL, 
-  FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
-)
-
-INSERT INTO profiles(creator_id, name, picture)
-VALUES("6758a99b25f750aecd7e2ece", "jeff", "https://images.unsplash.com/photo-1614796918928-c92c79693e94?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZWxtb3xlbnwwfHwwfHx8MA%3D%3D");
-
-DROP TABLE profiles;
-
-
-      SELECT
-      *
-      FROM profiles
-      WHERE creator_id = "6758a99b25f750aecd7e2ece";
-
-      SELECT
-      profiles.*,
-      accounts.*
-      FROM profiles
-      JOIN accounts on accounts.id = profiles.id
-      WHERE profiles.id = 3;
-
-      SELECT
-      keeps.*,
-      vaultkeeps.*,
-      accounts.*
-      FROM vaultkeeps
-      JOIN keeps ON keeps.id = vaultkeeps.keep_id
-      JOIN accounts ON accounts.id = keeps.creator_id
-      WHERE vaultkeeps.vault_id = 8;
-
-      SELECT
-      vaults.*,
-      vaultkeeps.*,
-      accounts.*
-      FROM vaultkeeps
-      JOIN vaults ON vaults.id = vaultkeeps.keep_id
-      JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaultkeeps.vault_id = 8;
-
-SELECT
-      vaultkeeps.*,
-      accounts.*
-      FROM vaultkeeps
-      JOIN accounts ON accounts.id = vaultkeeps.creator_id
-      WHERE vaultkeeps.vault_id = 2;
-INSERT INTO vault_kept(keep_id, vault_id, creator_id)
-VALUES();
-
-SELECT
-      vaultkeeps.*,
+      SELECT 
       keeps.*,
       accounts.*
-      FROM vaultkeeps
-      JOIN keeps ON keeps.id = vaultkeeps.keep_id
+      FROM keeps
       JOIN accounts ON accounts.id = keeps.creator_id
-      WHERE vaultkeeps.vault_id = 39;
+      WHERE keeps.creator_id = "6758a99b25f750aecd7e2ece";
 
-DROP TABLE vault_kept;
-
-SELECT * FROM keeps;
-
-
-UPDATE keeps
-    SET
-    name = "Yikes"
-    WHERE id = 13 LIMIT 1
+      SELECT 
+      accounts.*,
+      keeps.*
+      FROM accounts
+      JOIN keeps ON accounts.id = keeps.creator_id
+      WHERE keeps.creator_id = "6758a99b25f750aecd7e2ece";
