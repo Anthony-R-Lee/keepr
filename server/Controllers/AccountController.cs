@@ -7,6 +7,7 @@ public class AccountController : ControllerBase
 {
   private readonly AccountService _accountService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly VaultsService _vaultsService;
 
   public AccountController(AccountService accountService, Auth0Provider auth0Provider)
   {
@@ -25,6 +26,20 @@ public class AccountController : ControllerBase
     catch (Exception e)
     {
       return BadRequest(e.Message);
+    }
+  }
+
+  [HttpGet("/vaults")]
+  public ActionResult<List<Vault>> GetMyVaults()
+  {
+    try
+    {
+      List<Vault> vaults = _vaultsService.GetMyVaults();
+      return Ok(vaults);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
     }
   }
 }

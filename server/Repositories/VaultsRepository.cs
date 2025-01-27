@@ -72,6 +72,25 @@ public class VaultsRepository : IRepository<Vault>
     if (rowsAffected != 1) throw new Exception($"{rowsAffected} were deleted");
   }
 
+  internal List<Vault> GetMyVaults()
+  {
+    string sql = @"
+      SELECT 
+      vaults.*,
+      accounts.* 
+      FROM vaults
+      JOIN accounts ON accounts.id = vaults.creator_id
+      WHERE vaults.creator_id = accounts.id;
+      ";
+
+    List<Vault> vaults = _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }).ToList();
+    return vaults;
+  }
+
   public void Update(int id)
   {
     throw new NotImplementedException();
@@ -80,4 +99,5 @@ public class VaultsRepository : IRepository<Vault>
   {
     throw new NotImplementedException();
   }
+
 }

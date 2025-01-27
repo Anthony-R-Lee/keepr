@@ -52,4 +52,10 @@ public class VaultsService
 
     return $"Deleted {vault.Name}";
   }
+
+  internal List<Vault> GetMyVaults()
+  {
+    List<Vault> vaults = _repository.GetMyVaults();
+    return vaults;
+  }
 }
