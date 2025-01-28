@@ -4,6 +4,11 @@ import { AppState } from "@/AppState.js"
 import { Vault } from "@/models/Vault.js"
 
 class VaultsService{
+  async getVaultKeeps(vaultId) {
+    AppState.vaultKeeps = []
+    const response = await api.get(`api/vaults/${vaultId}/keeps`)
+    logger.log("GOT VAULTKEEPS", response.data)
+  }
   async getVaults() {
       AppState.vaults = []
       const response = await api.get('api/vaults')

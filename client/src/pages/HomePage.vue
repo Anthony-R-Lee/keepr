@@ -14,7 +14,7 @@ const activeKeep = computed(() => AppState.activeKeep)
 
 onMounted(() => {
   getKeeps()
-  getVaults()
+  // getVaults()
 })
 
 async function getKeeps() {
@@ -26,16 +26,17 @@ async function getKeeps() {
     logger.error("GETTING KEEPS", error)
   }
 }
+// }
 
-async function getVaults() {
-  try {
-    await vaultsService.getVaults()
-  }
-  catch (error) {
-    Pop.meow(error);
-    logger.error("GETTING VAULTS", error)
-  }
-}
+// async function getVaults() {
+//   try {
+//     await vaultsService.getVaults()
+//   }
+//   catch (error) {
+//     Pop.meow(error);
+//     logger.error("GETTING VAULTS", error)
+//   }
+// }
 </script>
 
 <template>

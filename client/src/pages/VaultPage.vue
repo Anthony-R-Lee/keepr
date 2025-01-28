@@ -15,6 +15,7 @@ const account = computed(() => AppState.account)
 
 onMounted(() => {
   getVaultById()
+  getVaultKeeps()
 })
 
 async function getVaultById() {
@@ -25,6 +26,17 @@ async function getVaultById() {
   catch (error) {
     Pop.meow(error);
     logger.error("GETTING VAULT BY ID", error)
+  }
+}
+
+async function getVaultKeeps() {
+  try {
+    const vaultId = route.params.vaultId
+    await vaultsService.getVaultKeeps(vaultId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING VAULT KEEPS", error)
   }
 }
 </script>
