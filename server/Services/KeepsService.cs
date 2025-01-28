@@ -30,6 +30,15 @@ public class KeepsService
     return keep;
   }
 
+  internal Keep GetKeepById(int keepId, string userId)
+  {
+    Keep keep = _repository.GetById(keepId);
+
+    if (keep == null) throw new Exception($"Invalid keep id: {keepId}");
+
+    return keep;
+  }
+
   internal Keep UpdateKeep(int keepId, string userId, Keep updateData)
   {
     Keep keep = GetKeepById(keepId);
@@ -53,5 +62,17 @@ public class KeepsService
     _repository.Delete(keepId);
 
     return $"Deleted {keep.Name}";
+  }
+
+  internal Keep IncrementVisits(int keepId, string userId)
+  {
+    Keep keep = GetKeepById(keepId, userId);
+    if (keep.CreatorId != userId)
+    {
+      keep.Views++;
+
+      _repository.IncrementVisits(keep);
+    }
+    return keep;
   }
 }

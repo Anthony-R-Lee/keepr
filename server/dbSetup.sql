@@ -51,6 +51,10 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
+    UPDATE keeps
+    SET views = @Views
+    WHERE id = 21;
+
       UPDATE accounts
       SET
       name = "jeff",

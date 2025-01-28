@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace keepr.Controllers;
 
 [ApiController]
@@ -46,11 +48,13 @@ public class KeepsController : ControllerBase
   }
 
   [HttpGet("{keepId}")]
-  public ActionResult<Keep> GetKeepById(int keepId)
+  public async Task<ActionResult<Keep>> GetKeepById(int keepId)
   {
     try
     {
-      Keep keep = _keepsService.GetKeepById(keepId);
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Keep keep = _keepsService.IncrementVisits(keepId, userInfo?.Id);
+
       return Ok(keep);
     }
     catch (Exception exception)

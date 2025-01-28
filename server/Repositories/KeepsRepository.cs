@@ -100,4 +100,15 @@ public class KeepsRepository : IRepository<Keep>
   {
     throw new NotImplementedException();
   }
+
+  internal void IncrementVisits(Keep keep)
+  {
+    string sql = @"
+    UPDATE keeps
+    SET views = @Views
+    WHERE id = @Id
+    LIMIT 1;";
+    int rowsAffected = _db.Execute(sql, keep);
+    if (rowsAffected != 1) throw new Exception($"{rowsAffected} were updated");
+  }
 }
