@@ -63,7 +63,7 @@ public class VaultsService
   {
     Vault vault = _repository.GetById(vaultId);
 
-    if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception($"Vault is private");
+    if (vault.IsPrivate == true && vault.CreatorId != userId || vault == null) throw new Exception($"Vault is private");
 
     return vault;
   }

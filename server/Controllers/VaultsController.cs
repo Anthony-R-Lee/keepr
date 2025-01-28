@@ -83,7 +83,7 @@ public class VaultsController : ControllerBase
     }
   }
 
-  [Authorize]
+  // [Authorize]
   [HttpGet("{vaultId}/keeps")]
   public async Task<ActionResult<List<VaultKept>>> GetKeepsInVault(int vaultId)
   {
