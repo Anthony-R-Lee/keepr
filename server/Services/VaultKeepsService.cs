@@ -17,9 +17,9 @@ public class VaultKeepsService
 
   internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
   {
-    // Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+    Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
 
-    // if (vault.CreatorId != vaultKeepData.CreatorId) throw new Exception("You can't add a keep to your own vault!");
+    if (vault.CreatorId != vaultKeepData.CreatorId) throw new Exception("You can't add a keep to your own vault!");
 
     VaultKeep vaultkeep = _repository.Create(vaultKeepData);
     return vaultkeep;

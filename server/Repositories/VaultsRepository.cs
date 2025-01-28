@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using keepr.Interfaces;
 
 namespace keepr.Repositories;
@@ -72,7 +73,7 @@ public class VaultsRepository : IRepository<Vault>
     if (rowsAffected != 1) throw new Exception($"{rowsAffected} were deleted");
   }
 
-  internal List<Vault> GetMyVaults()
+  internal List<Vault> GetMyVaults(string userId)
   {
     string sql = @"
       SELECT 
@@ -80,13 +81,13 @@ public class VaultsRepository : IRepository<Vault>
       accounts.* 
       FROM vaults
       JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaults.creator_id = accounts.id;";
+      WHERE vaults.creator_id = @userId;";
 
     List<Vault> vaults = _db.Query(sql, (Vault vault, Profile account) =>
     {
       vault.Creator = account;
       return vault;
-    }).ToList();
+    }, new { userId }).ToList();
     return vaults;
   }
 
@@ -99,4 +100,21 @@ public class VaultsRepository : IRepository<Vault>
     throw new NotImplementedException();
   }
 
+  internal Vault GetById(string userId)
+  {
+    string sql = @"
+    SELECT
+    vaults.*,
+    accounts.*
+    FROM vaults
+    JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = @userId;";
+
+    Vault vault = _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { userId }).SingleOrDefault();
+    return vault;
+  }
 }

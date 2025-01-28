@@ -27,7 +27,6 @@ public class VaultsService
 
     return vault;
   }
-
   internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
   {
     Vault vault = GetVaultById(vaultId);
@@ -53,10 +52,19 @@ public class VaultsService
     return $"Deleted {vault.Name}";
   }
 
-  internal List<Vault> GetMyVaults()
+  internal List<Vault> GetMyVaults(string userId)
   {
-    List<Vault> vaults = _repository.GetMyVaults();
+    List<Vault> vaults = _repository.GetMyVaults(userId);
+
     return vaults;
+  }
+  internal Vault GetVaultById(string userId)
+  {
+    Vault vault = _repository.GetById(userId);
+
+    if (vault.IsPrivate == true && vault.CreatorId != userId || vault == null) throw new Exception($"Vault is private");
+
+    return vault;
   }
 
   internal Vault GetVaultById(int vaultId, string userId)
@@ -67,4 +75,5 @@ public class VaultsService
 
     return vault;
   }
+
 }

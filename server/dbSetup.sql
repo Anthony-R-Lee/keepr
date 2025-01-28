@@ -51,32 +51,18 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
-    UPDATE keeps
-    SET views = @Views
-    WHERE id = 21;
-
-      UPDATE accounts
-      SET
-      name = "jeff",
-      cover_img = "https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&h=400&q=60",
-      picture = "https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&h=400&q=60"
-      WHERE id = "675c925542ce2a9d5f6177b3" LIMIT 1;
-
-    INSERT INTO vaults(name, description, img, is_private, creator_id)
-    VALUES("pork chop 2", "i love pork chops", "https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&h=400&q=60", true, "6758a99b25f750aecd7e2ece");
-
-    SELECT 
-    vaults.*,
-    accounts.*
-    FROM vaults
-    JOIN accounts ON accounts.id = vaults.creator_id
-    WHERE vaults.id = LAST_INSERT_ID();
+      SELECT 
+      vaults.*,
+      accounts.* 
+      FROM vaults
+      JOIN accounts ON accounts.id = vaults.creator_id
+      WHERE vaults.creator_id = accounts.id;
 
       SELECT 
       vaults.*,
       accounts.*
       FROM vaults
       JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaults.creator_id = "6758a99b25f750aecd7e2ece";
+      WHERE vaults.creator_id = "6758aa1356b96ff157d7af1c";
       -- 6758aa1356b96ff157d7af1c
 
