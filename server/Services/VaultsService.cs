@@ -23,7 +23,7 @@ public class VaultsService
   {
     Vault vault = _repository.GetById(vaultId);
 
-    if (vault == null) throw new Exception($"Invalid vault id: {vaultId}");
+    if (vault == null || vault.IsPrivate == true) throw new Exception($"Invalid vault id: {vaultId} or vault is private");
 
     return vault;
   }
@@ -57,5 +57,14 @@ public class VaultsService
   {
     List<Vault> vaults = _repository.GetMyVaults();
     return vaults;
+  }
+
+  internal Vault GetVaultById(int vaultId, string userId)
+  {
+    Vault vault = _repository.GetById(vaultId);
+
+    if (vault.CreatorId == null || vault.IsPrivate == true) throw new Exception($"Invalid vault id: {vaultId}, vault is private, or you're the owner of a private vault");
+
+    return vault;
   }
 }

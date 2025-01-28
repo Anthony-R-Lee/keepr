@@ -42,7 +42,7 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}/vaults")]
-  public ActionResult<List<Vault>> GetUsers(string profileId)
+  public ActionResult<List<Vault>> GetUserVaults(string profileId)
   {
     try
     {

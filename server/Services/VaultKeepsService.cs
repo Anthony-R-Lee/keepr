@@ -17,17 +17,21 @@ public class VaultKeepsService
 
   internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
   {
-    // {
-    //   Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
+    Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
 
-    //   if (vault.CreatorId == vaultKeepData.CreatorId) throw new Exception("You can't add a keep to your own vault!");
+    if (vault.CreatorId != vaultKeepData.CreatorId) throw new Exception("You can't add a keep to your own vault!");
+
     VaultKeep vaultkeep = _repository.Create(vaultKeepData);
     return vaultkeep;
   }
 
-  internal List<VaultKept> GetKeepsInPublicVault(int vaultId)
+  internal List<VaultKept> GetKeepsInVault(int vaultId, string userId)
   {
-    List<VaultKept> vaultKeeps = _repository.GetKeepsInPublicVault(vaultId);
+    Vault vault = _vaultsService.GetVaultById(vaultId, userId);
+
+    if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception("You can't access a private vault!");
+
+    List<VaultKept> vaultKeeps = _repository.GetKeepsInVault(vaultId);
     return vaultKeeps;
   }
 

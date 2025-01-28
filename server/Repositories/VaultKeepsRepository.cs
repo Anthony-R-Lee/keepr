@@ -33,7 +33,7 @@ public class VaultKeepsRepository : IRepository<VaultKeep>
     return vaultKeep;
   }
 
-  internal List<VaultKept> GetKeepsInPublicVault(int vaultId)
+  internal List<VaultKept> GetKeepsInVault(int vaultId)
   {
     string sql = @"
       SELECT
