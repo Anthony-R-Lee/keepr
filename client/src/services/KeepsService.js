@@ -26,10 +26,10 @@ async getKeepById(keepId) {
   AppState.activeKeep = keep
 }
   async deleteKeep(keepId) {
-    const response = await api(`api/keeps/${keepId}`)
+    const response = await api.delete(`api/keeps/${keepId}`)
     logger.log("DELETED KEEP", response.data)
-    const keepIndex = AppState.keeps.findIndex(keep => keep.id == keepId)
-    AppState.keeps.splice(keepIndex, 1)
+    const keep = AppState.keeps.findIndex(keep => keep.id == keepId)
+    AppState.keeps.splice(keep, 1)
   }
   
 }

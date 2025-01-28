@@ -3,9 +3,17 @@ import { AppState } from '../AppState.js'
 import { Account } from '../models/Account.js'
 import { logger } from '../utils/Logger.js'
 import { api } from './AxiosService.js'
+import { Keep } from '@/models/Keep.js'
 
 class AccountService {
-  async GetMyVault() {
+  async getMyKeep(accountId) {
+    AppState.profileKeeps = []
+    const response = await api.get(`api/profiles/${accountId}/keeps`)
+    logger.log("GOT MY KEEPS", response.data)
+      AppState.profileKeeps = response.data.map(pojo => new Keep(pojo) )
+    
+  }
+  async getMyVault() {
     AppState.profileVaults = []
     const response = await api.get("account/vaults")
     logger.log("GOT MY VAULTS", response.data)

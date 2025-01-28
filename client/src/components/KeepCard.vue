@@ -35,7 +35,7 @@ async function getKeepById(keepId) {
 
 async function deleteKeep(keepId) {
   try {
-    const confirm = await Pop.confirm(`Do you really want to delete${activeKeep.value.name}?`)
+    const confirm = await Pop.confirm(`Do you really want to delete ${props.keep.name}?`)
 
     if (!confirm) return
 
@@ -55,13 +55,13 @@ async function deleteKeep(keepId) {
     <div>
 
       <div v-if="account?.id == keep.creatorId" class="delete-btn">
-        <button @click="deleteKeep(activeKeep?.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+        <button @click="deleteKeep(props.keep.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
-        <div @click="getKeepById(keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
+        <div @click="getKeepById(props.keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
           class="title text-light text-capitalize d-flex align-items-end">
           <b>
-            {{ keep.name }}
+            {{ props.keep?.name }}
           </b>
         </div>
         <RouterLink :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" class="" role="button">

@@ -8,6 +8,7 @@ import Pop from '@/utils/Pop.js';
 import { logger } from '@/utils/Logger.js';
 import { useRoute } from 'vue-router';
 import VaultCard from '@/components/VaultCard.vue';
+import KeepCard from '@/components/KeepCard.vue';
 
 const route = useRoute()
 
@@ -25,6 +26,12 @@ const accountData = ref({
 
 onMounted(() => {
   getMyVault()
+  getMyKeep()
+
+})
+
+watch(account, () => {
+  getMyKeep()
 })
 
 watch(account, () => {
@@ -37,7 +44,7 @@ watch(account, () => {
 async function getMyVault() {
   try {
     // const profileId = route.params.profileId
-    await accountService.GetMyVault()
+    await accountService.getMyVault()
   }
   catch (error) {
     Pop.meow(error);
@@ -45,16 +52,16 @@ async function getMyVault() {
   }
 }
 
-// async function getUsersKeep() {
-//   try {
-//     const profileId = route.params.profileId
-//     await profilesService.GetUsersKeep(profileId)
-//   }
-//   catch (error) {
-//     Pop.meow(error);
-//     logger.error("GETTING USERS KEEP", error)
-//   }
-// }
+async function getMyKeep() {
+  try {
+    const accountId = account.value?.id
+    await accountService.getMyKeep(accountId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING MY KEEPS", error)
+  }
+}
 </script>
 
 <template>
@@ -65,7 +72,7 @@ async function getMyVault() {
           <div class="col-12 pt-4">
             <img class="rounded cover-img" :src="account.coverImg" alt="" />
           </div>
-          <div class="btn-group">
+          <div class="btn-group edit-dropdown">
             <button class="btn fs-3" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true"
               aria-expanded="false">
               <i class="mdi mdi-dots-horizontal"></i>
@@ -90,8 +97,13 @@ async function getMyVault() {
             <VaultCard :vault="vault" />
           </div>
         </div>
-        <div class="col-md-7 justify-content-center text-start d-flex">
+        <div class="col-md-7 justify-content-center text-start d-flex py-3">
           <h1>Keeps</h1>
+        </div>
+        <div class="masonry mx-5 px-5">
+          <div v-for="keep in keeps" :key="keep.id">
+            <KeepCard :keep="keep" />
+          </div>
         </div>
       </div>
     </div>
@@ -104,6 +116,12 @@ async function getMyVault() {
 <style scoped lang="scss">
 .masonry {
   column-count: 4;
+}
+
+.edit-dropdown {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .profile-img {
