@@ -39,7 +39,9 @@ async function createVault() {
 
 <template>
   <form @submit.prevent="createVault()" class="form">
-    <button class="btn-close py-2" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="d-flex justify-content-end">
+      <button class="btn-close py-2" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
     <div class="">
       <div class="form-floating mb-4 col-12">
         <input v-model="editableData.name" type="text" class="form-control" id="name" placeholder="Name..." required

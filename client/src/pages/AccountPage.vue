@@ -34,17 +34,6 @@ watch(account, () => {
 
 }, { immediate: true })
 
-async function editAccount() {
-  try {
-    await accountService.editAccount(accountData.value)
-    Modal.getInstance('#editAccountModal').show()
-  }
-  catch (error) {
-    Pop.meow(error);
-    logger.error("EDITING ACCOUNT", error)
-  }
-}
-
 async function getMyVault() {
   try {
     // const profileId = route.params.profileId
@@ -73,7 +62,7 @@ async function getMyVault() {
     <div v-if="account">
       <div>
         <div class="d-flex justify-content-between">
-          <div>
+          <div class="col-12 pt-4">
             <img class="rounded cover-img" :src="account.coverImg" alt="" />
           </div>
           <div class="btn-group">
@@ -82,14 +71,13 @@ async function getMyVault() {
               <i class="mdi mdi-dots-horizontal"></i>
             </button>
             <ul class="dropdown-menu">
-              <li @click="editAccount()"><a class="dropdown-item" href="#" data-bs-toggle="modal"
-                  data-bs-target="#editAccountModal">Edit
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit
                   Account</a></li>
             </ul>
           </div>
         </div>
-        <img class="rounded profile-img my-3" :src="account.picture" alt="" />
-        <h1> {{ account.name }}</h1>
+        <img class="rounded profile-img" :src="account.picture" alt="" />
+        <h1 class="mt-5"> {{ account.name }}</h1>
         <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
       </div>
       <div>

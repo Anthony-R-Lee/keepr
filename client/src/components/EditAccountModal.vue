@@ -36,7 +36,7 @@ async function editAccount() {
 
 
 <template>
-  <div class="modal-dialog modal-xl bg-body " id="editAccountModal" modalId="editAccountModal">
+  <div @submit.prevent="editAccount()" class=" bg-body " id="editAccountModal" modalId="editAccountModal">
     <div v-if="accountData">
       <div class="text-end">
         <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -59,7 +59,7 @@ async function editAccount() {
             class="form-control" maxlength="500">
         </div>
         <div class="d-flex justify-content-end">
-          <button @submit.prevent="editAccount()" class="btn btn-warning">Save</button>
+          <button class="btn btn-warning">Save</button>
         </div>
       </form>
     </div>

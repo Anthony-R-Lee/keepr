@@ -36,7 +36,9 @@ async function createKeep() {
 
 <template>
   <form @submit.prevent="createKeep()" class="form">
-    <button class="btn-close py-2" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="d-flex justify-content-end">
+      <button class="btn-close py-2" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
     <div class="d-flex justify-content-between gap-2">
       <div class="form-floating mb-4 col-6">
 
