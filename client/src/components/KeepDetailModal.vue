@@ -1,22 +1,49 @@
 <script setup>
 import { Keep } from '@/models/Keep';
 import KeepCard from './KeepCard.vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { AppState } from '@/AppState';
 import ModalWrapper from './ModalWrapper.vue';
 import { Vault } from '@/models/Vault';
+import Pop from '@/utils/Pop';
+import { logger } from '@/utils/Logger';
+import { useRoute } from 'vue-router';
+import { keepsService } from '@/services/KeepsService';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
-defineProps({
+const vaultKeep = computed(() => AppState.vaultKeep)
+
+const route = useRoute()
+
+// const editableVaultKeepData = ref({
+//   keepId: '',
+//   vaultId: ''
+// })
+
+const props = defineProps({
   keep: { type: Keep },
-  vault: { type: Vault }
+  vaults: { type: Vault }
 })
+
+async function createVaultKeep() {
+  try {
+    const vaultData = { vaultId: route.params.vaultId }
+    await keepsService.createVaultKeep(vaultData)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("CREATING VAULTKEEP", error)
+  }
+}
 </script>
 
 
 <template>
-  <div class="modal-dialog modal-xl bg-body " id="keepDetailModal" modalId="keepDetailModal">
+  <div class="bg-body" id="keepDetailModal" modalId="keepDetailModal">
+    <div class="d-flex justify-content-end">
+      <button class="btn-close p-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
     <div v-if="activeKeep" class="d-flex justify-content-between modal-xl">
       <div class="col-md-6 col-12">
         <img class="keep-detail-img" :src="activeKeep.img" alt="Keep Image">
@@ -45,18 +72,13 @@ defineProps({
         </div>
         <div class="d-flex justify-content-between align-items-end px-5">
           <div class="d-flex align-items-end dropdown-input">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                VAULTS
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
-            <div>
-              <button class="btn btn-secondary text-light">save</button>
+            Vaults Raw: {{ vaults }}
+            <select class="form-select vault-select mx-2" aria-label="Default">
+              <option selected>VAULTS</option>
+              <option v-for="vault in vaults" :key="vault.id">{{ props.vaults.name }}</option>
+            </select>
+            <div :disabled="vaults?.isPrivate">
+              <button @click="createVaultKeep()" class="btn btn-secondary text-light">save</button>
             </div>
           </div>
           <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark " role="button"
@@ -75,6 +97,10 @@ defineProps({
 </template>
 
 <style lang="scss" scoped>
+.vault-select {
+  cursor: pointer;
+}
+
 .keep-detail-img {
   object-fit: cover;
   object-position: center;
@@ -87,16 +113,16 @@ defineProps({
 
 .profile-info {
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   right: 0;
   padding-left: 3em;
 }
 
 .dropdown-input {
   position: absolute;
-  bottom: 0;
+  bottom: 1em;
   left: 50%;
-
+  border-color: black;
 }
 
 .profile-info img {

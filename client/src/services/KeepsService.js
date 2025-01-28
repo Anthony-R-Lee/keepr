@@ -4,6 +4,10 @@ import { AppState } from "@/AppState.js";
 import { Keep } from "@/models/Keep.js";
 
 class KeepsService {
+  async createVaultKeep(vaultData) {
+    const response = await api.post('api/vaultkeeps', vaultData)
+    logger.log("CREATE VAULTKEEP", response.data)
+  }
 async getKeeps(){
   AppState.keeps = []
   const response = await api.get('api/keeps')

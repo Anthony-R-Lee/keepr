@@ -4,6 +4,12 @@ import { AppState } from "@/AppState.js"
 import { Vault } from "@/models/Vault.js"
 
 class VaultsService{
+  async getVaults() {
+      AppState.vaults = []
+      const response = await api.get('api/vaults')
+      logger.log("GOT VAULTS ", response.data)
+      AppState.vaults = response.data.map(pojo => new Vault(pojo))
+  }
   async createVault(vaultData) {
     const response = await api.post('api/vaults', vaultData)
       logger.log("CREATED VAULT", response.data)

@@ -109,7 +109,9 @@ async function deleteKeep(keepId) {
   margin: -0.5em;
   border-radius: 100em;
   max-height: 10px;
+  min-width: 1em;
 }
+
 
 .title {
   margin: 0.5em;
@@ -121,5 +123,6 @@ async function deleteKeep(keepId) {
   position: absolute;
   bottom: 0;
   width: 90%;
+  cursor: pointer;
 }
 </style>
