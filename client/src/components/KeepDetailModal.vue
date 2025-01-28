@@ -16,17 +16,25 @@ const vaultKeep = computed(() => AppState.vaultKeep)
 
 const myVaults = computed(() => AppState.myVaults)
 
-const route = useRoute()
+// const route = useRoute()
 
 const props = defineProps({
   keep: { type: Keep },
   vaults: { type: Vault }
 })
 
+const editableData = ref({
+  vaultId: '',
+  keepId: activeKeep.value?.id
+})
+
 async function createVaultKeep() {
   try {
-    const vaultData = { vaultId: route.params.vaultId }
-    await keepsService.createVaultKeep(vaultData)
+    await keepsService.createVaultKeep(editableData.value)
+    editableData.value = {
+      vaultId: '',
+      keepId: activeKeep.value?.id
+    }
   }
   catch (error) {
     Pop.meow(error);
@@ -69,10 +77,11 @@ async function createVaultKeep() {
         </div>
         <div class="d-flex justify-content-between align-items-end px-5">
           <div class="d-flex align-items-end dropdown-input">
-            {{ myVaults }}
-            <select class="form-select vault-select mx-2" aria-label="Default">
-              <option selected>VAULTS</option>
-              <option v-for="vault in vaults" :key="vault.id">{{ props.vaults.name }}</option>
+            <select v-model="editableData.vaultId" class="form-select vault-select mx-2" aria-label="Default">
+              <option value="" disabled selected>VAULTS</option>
+              <option v-for="vault in myVaults" :key="vault.id" :value="vault.id">
+                {{ vault.name }}
+              </option>
             </select>
             <div :disabled="vaults?.isPrivate">
               <button @click="createVaultKeep()" class="btn btn-secondary text-light"

@@ -14,10 +14,10 @@ class AccountService {
     
   }
   async getMyVault() {
-    AppState.profileVaults = []
+    AppState.myVaults = []
     const response = await api.get("account/vaults")
     logger.log("GOT MY VAULTS", response.data)
-    AppState.profileVaults = response.data.map(pojo => new Vault(pojo))
+    AppState.myVaults = response.data.map(pojo => new Vault(pojo))
   }
   async editAccount(accountData) {
     const response = await api.put('account', accountData)
