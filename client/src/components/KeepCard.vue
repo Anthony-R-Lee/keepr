@@ -79,7 +79,8 @@ async function deleteKeep(keepId) {
 
 <style lang="scss" scoped>
 .card {
-  min-height: 10em;
+  // min-height: 10em;
+  min-height: 20em;
   background-position: center;
   background-size: cover;
   // margin: 1.75em;

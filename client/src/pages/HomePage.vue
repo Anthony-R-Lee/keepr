@@ -2,19 +2,27 @@
 import { AppState } from '@/AppState';
 import KeepCard from '@/components/KeepCard.vue';
 import KeepDetailModal from '@/components/KeepDetailModal.vue';
+import { accountService } from '@/services/AccountService';
 import { keepsService } from '@/services/KeepsService';
 import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 const keeps = computed(() => AppState.keeps)
 
+const account = computed(() => AppState.account)
+
 const activeKeep = computed(() => AppState.activeKeep)
+
+const vaults = computed(() => AppState.myVaults)
+
+const route = useRoute()
 
 onMounted(() => {
   getKeeps()
-  // getVaults()
+  // getMyVaults()
 })
 
 async function getKeeps() {
@@ -26,15 +34,14 @@ async function getKeeps() {
     logger.error("GETTING KEEPS", error)
   }
 }
-// }
 
-// async function getVaults() {
+// async function getMyVaults() {
 //   try {
-//     await vaultsService.getVaults()
+//     await accountService.getMyVault()
 //   }
 //   catch (error) {
 //     Pop.meow(error);
-//     logger.error("GETTING VAULTS", error)
+//     logger.error("GETTING MY VAULTS", error)
 //   }
 // }
 </script>

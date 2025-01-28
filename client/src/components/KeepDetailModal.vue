@@ -14,12 +14,9 @@ const activeKeep = computed(() => AppState.activeKeep)
 
 const vaultKeep = computed(() => AppState.vaultKeep)
 
-const route = useRoute()
+const myVaults = computed(() => AppState.myVaults)
 
-// const editableVaultKeepData = ref({
-//   keepId: '',
-//   vaultId: ''
-// })
+const route = useRoute()
 
 const props = defineProps({
   keep: { type: Keep },
@@ -63,7 +60,7 @@ async function createVaultKeep() {
         </div>
         <div class="px-4 pt-5 mt-5">
           <div class="d-flex justify-content-center align-items-center">
-            <h3 class="recipe-detail-header">{{ activeKeep.name }}</h3>
+            <h3 class="recipe-detail-header" :title="`View ${activeKeep.name} in Detail`">{{ activeKeep.name }}</h3>
 
           </div>
         </div>
@@ -72,17 +69,18 @@ async function createVaultKeep() {
         </div>
         <div class="d-flex justify-content-between align-items-end px-5">
           <div class="d-flex align-items-end dropdown-input">
-            Vaults Raw: {{ vaults }}
+            {{ myVaults }}
             <select class="form-select vault-select mx-2" aria-label="Default">
               <option selected>VAULTS</option>
               <option v-for="vault in vaults" :key="vault.id">{{ props.vaults.name }}</option>
             </select>
             <div :disabled="vaults?.isPrivate">
-              <button @click="createVaultKeep()" class="btn btn-secondary text-light">save</button>
+              <button @click="createVaultKeep()" class="btn btn-secondary text-light"
+                :title="`Save ${activeKeep?.name}`">save</button>
             </div>
           </div>
-          <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark " role="button"
-            :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
+          <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark " :title="activeKeep.creator.name"
+            role="button" :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
             <div>
               <img :src="activeKeep.creator.picture" alt="">
             </div>
