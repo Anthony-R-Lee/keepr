@@ -13,6 +13,8 @@ const vaults = computed(() => AppState.activeVault)
 
 const account = computed(() => AppState.account)
 
+const vaultKeeps = computed(() => AppState.vaultKeeps)
+
 onMounted(() => {
   getVaultById()
   getVaultKeeps()
@@ -62,7 +64,7 @@ async function getVaultKeeps() {
       </div>
       <div class=" d-flex justify-content-center">
         <div class="keep-count">
-          <b>13 Keeps</b>
+          <b>{{ vaultKeeps.length }} Keeps</b>
         </div>
       </div>
     </div>
