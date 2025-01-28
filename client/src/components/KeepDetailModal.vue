@@ -4,11 +4,13 @@ import KeepCard from './KeepCard.vue';
 import { computed } from 'vue';
 import { AppState } from '@/AppState';
 import ModalWrapper from './ModalWrapper.vue';
+import { Vault } from '@/models/Vault';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
 defineProps({
-  keep: { type: Keep }
+  keep: { type: Keep },
+  vault: { type: Vault }
 })
 </script>
 
@@ -16,45 +18,47 @@ defineProps({
 <template>
   <div class="modal-dialog modal-xl bg-body " id="keepDetailModal" modalId="keepDetailModal">
     <div v-if="activeKeep" class="d-flex justify-content-between modal-xl">
-      <div class="col-6">
-        <img class="keep-detail-img" :src="activeKeep.img" alt="">
+      <div class="col-md-6 col-12">
+        <img class="keep-detail-img" :src="activeKeep.img" alt="Keep Image">
       </div>
-      <div class="col-6">
-        <div class="d-flex justify-content-center px-5">
-          <div>
-            <i class="mdi mdi-eye-outline"></i>
+      <div class="col-md-6 col-12">
+        <div class="d-flex justify-content-center fs-5">
+          <div class="px-3">
+            <i class="mdi mdi-eye-outline p-1"></i>
             <span>
               {{ activeKeep.views }}
             </span>
           </div>
-          <div>
-            <i class="mdi mdi-alpha-k-box-outline"></i>
+          <div class="px-3">
+            <i class="mdi mdi-alpha-k-box-outline p-1"></i>
             <span>0</span>
           </div>
         </div>
-        <div class="px-4 pt-4">
-          <div class="d-flex justify-content-between align-items-center">
+        <div class="px-4 pt-5 mt-5">
+          <div class="d-flex justify-content-center align-items-center">
             <h3 class="recipe-detail-header">{{ activeKeep.name }}</h3>
 
           </div>
         </div>
-        <div class="text-dark d-flex justify-content-center m-3">
+        <div class="text-dark d-flex justify-content-center mx-3 my-2 px-5">
           {{ activeKeep.description }}
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="d-flex ">
-            <div class="dropdown">
-              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                PLANTS
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </div>
-            <div>
-              <button class="btn btn-secondary text-light">save</button>
+        <div class="d-flex justify-content-between align-items-end px-5">
+          <div class="d-flex align-items-end">
+            <div class="d-flex align-items-end">
+              <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  VAULTS
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </div>
+              <div>
+                <button class="btn btn-secondary text-light">save</button>
+              </div>
             </div>
           </div>
           <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark " role="button"

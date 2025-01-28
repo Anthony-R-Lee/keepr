@@ -21,7 +21,7 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-warning bg-page px-3 border-bottom border-warning">
+  <nav class="navbar navbar-expand-sm navbar-warning bg-page px-3 border-bottom border-warning ">
     <div class="col-md-2 d-flex align-items-center">
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex flex-column align-items-center">

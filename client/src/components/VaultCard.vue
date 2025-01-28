@@ -31,6 +31,9 @@ defineProps({
               {{ vault.name }}
             </b>
           </div>
+          <div class="title text-light d-flex align-items-end justify-content-end">
+            <i v-if="vault.isPrivate" class="mdi mdi-lock"></i>
+          </div>
         </div>
       </div>
     </RouterLink>

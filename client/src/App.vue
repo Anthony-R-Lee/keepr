@@ -10,7 +10,7 @@ import VaultCreateForm from './components/VaultCreateForm.vue';
 </script>
 
 <template>
-  <header>
+  <header class="sticky-top bg-body">
     <Navbar />
   </header>
   <main class="position-relative">

@@ -65,11 +65,18 @@ async function getProfileById() {
   <div class="about text-center">
     <div v-if="profile">
       <div>
+        <div class="pt-4">
+          <img class="rounded cover-img" :src="profile?.coverImg" alt="" />
+        </div>
+        <div>
 
-        <img class="rounded cover-img" :src="profile?.coverImg" alt="" />
-        <img class="rounded profile-img" :src="profile?.picture" alt="" />
-        <h1> {{ profile?.name }}</h1>
-        <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
+          <img class="rounded profile-img" :src="profile?.picture" alt="" />
+        </div>
+        <div class="pt-4">
+
+          <h1> {{ profile?.name }}</h1>
+          <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
+        </div>
       </div>
       <div>
 
@@ -107,9 +114,13 @@ async function getProfileById() {
   max-width: 100px;
   max-height: 5em;
   border-radius: 50%;
+  margin: -5em;
 }
 
 .cover-img {
-  max-width: 100px;
+  max-width: 40%;
+  min-height: 10em;
+  background-position: center;
+  background-size: contain;
 }
 </style>
