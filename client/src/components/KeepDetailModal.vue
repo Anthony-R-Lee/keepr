@@ -40,25 +40,23 @@ defineProps({
 
           </div>
         </div>
-        <div class="text-dark d-flex justify-content-center mx-3 my-2 px-5">
+        <div class="text-dark d-flex justify-content-center mx-3 mb-5 px-5">
           {{ activeKeep.description }}
         </div>
         <div class="d-flex justify-content-between align-items-end px-5">
-          <div class="d-flex align-items-end">
-            <div class="d-flex align-items-end">
-              <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  VAULTS
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </div>
-              <div>
-                <button class="btn btn-secondary text-light">save</button>
-              </div>
+          <div class="d-flex align-items-end dropdown-input">
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                VAULTS
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </div>
+            <div>
+              <button class="btn btn-secondary text-light">save</button>
             </div>
           </div>
           <RouterLink class="profile-info d-flex align-items-center pe-2 text-dark " role="button"
@@ -91,6 +89,14 @@ defineProps({
   position: absolute;
   bottom: 0;
   right: 0;
+  padding-left: 3em;
+}
+
+.dropdown-input {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
 }
 
 .profile-info img {
