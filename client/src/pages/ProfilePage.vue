@@ -15,16 +15,16 @@ const account = computed(() => AppState.account)
 
 const keeps = computed(() => AppState.profileKeeps)
 
+const vaults = computed(() => AppState.profileVaults)
+
 const profile = computed(() => AppState.activeProfile)
 
-const vaults = computed(() => AppState.profileVaults)
 
 onMounted(() => {
   getProfileById()
   getUsersVault()
   getUsersKeep()
 })
-
 
 async function getUsersVault() {
   try {

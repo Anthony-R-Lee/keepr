@@ -38,7 +38,11 @@ async function editAccount() {
 <template>
   <div class="modal-dialog modal-xl bg-body " id="editAccountModal" modalId="editAccountModal">
     <div v-if="accountData">
-      <form @submit.prevent="editAccount()" class="row text-start">
+      <div class="text-end">
+        <button class="btn-close " type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form class="row text-start">
+
         <div class="mb-3 col-4">
           <label for="account-name">Name</label>
           <input v-model="accountData.name" type="text" id="account-name" name="account-name" class="form-control"
@@ -53,6 +57,9 @@ async function editAccount() {
           <label for="account-picture">Profile Picture</label>
           <input v-model="accountData.picture" type="text" id="account-picture" name="account-picture"
             class="form-control" maxlength="500">
+        </div>
+        <div class="d-flex justify-content-end">
+          <button @submit.prevent="editAccount()" class="btn btn-warning">Save</button>
         </div>
       </form>
     </div>
