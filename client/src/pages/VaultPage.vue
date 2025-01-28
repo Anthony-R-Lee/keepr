@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import KeepCard from '@/components/KeepCard.vue';
 import VaultCard from '@/components/VaultCard.vue';
 import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
@@ -11,14 +12,16 @@ const route = useRoute()
 
 const vaults = computed(() => AppState.activeVault)
 
+const keeps = computed(() => AppState.keeps)
+
 const account = computed(() => AppState.account)
 
 const vaultKeeps = computed(() => AppState.vaultKeeps)
 
-onMounted(() => {
+watch(route, () => {
   getVaultById()
   getVaultKeeps()
-})
+}, { immediate: true })
 
 async function getVaultById() {
   try {
@@ -63,8 +66,16 @@ async function getVaultKeeps() {
         </div>
       </div>
       <div class=" d-flex justify-content-center">
-        <div class="keep-count">
+        <div v-if="vaultKeeps.length != 1" class="keep-count">
           <b>{{ vaultKeeps.length }} Keeps</b>
+        </div>
+        <div v-else class="keep-count">
+          <b>{{ vaultKeeps.length }} Keep</b>
+        </div>
+      </div>
+      <div class="masonry mt-5">
+        <div v-for="keep in keeps" :key="keep.id">
+          <KeepCard :keep="keep" />
         </div>
       </div>
     </div>
@@ -100,8 +111,6 @@ async function getVaultKeeps() {
   justify-content: center;
   margin: 15px;
   border-radius: 10px;
-
-
 }
 
 .title {
@@ -117,6 +126,11 @@ async function getVaultKeeps() {
   bottom: 0;
   width: 90%;
 }
+
+.masonry {
+  column-count: 4;
+}
+
 
 .creator-name {
   margin: 0.5em;

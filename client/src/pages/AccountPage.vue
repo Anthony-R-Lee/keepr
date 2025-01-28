@@ -88,7 +88,6 @@ async function getMyKeep() {
         <p>{{ vaults.length }} Vaults | {{ keeps.length }} Keeps</p>
       </div>
       <div>
-
         <div class="col-md-7 justify-content-center text-start d-flex py-3">
           <h1>Vaults</h1>
         </div>
