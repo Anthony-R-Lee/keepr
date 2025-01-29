@@ -34,16 +34,6 @@ async function getKeeps() {
     logger.error("GETTING KEEPS", error)
   }
 }
-
-// async function getMyVaults() {
-//   try {
-//     await accountService.getMyVault()
-//   }
-//   catch (error) {
-//     Pop.meow(error);
-//     logger.error("GETTING MY VAULTS", error)
-//   }
-// }
 </script>
 
 <template>
@@ -54,7 +44,6 @@ async function getKeeps() {
       </div>
     </div>
   </div>
-  <!-- <KeepDetailModal /> -->
 </template>
 
 <style scoped lang="scss">

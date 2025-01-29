@@ -5,6 +5,7 @@ import { ref } from 'vue';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { vaultsService } from '@/services/VaultsService';
+import { Modal } from 'bootstrap';
 
 
 defineProps({
@@ -27,6 +28,8 @@ async function createVault() {
       description: '',
       img: ''
     }
+    Modal.getInstance('#vaultCreateModal').hide()
+
   } catch (error) {
     Pop.meow(error);
     logger.error("CREATING VAULT", error)

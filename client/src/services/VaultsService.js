@@ -2,7 +2,8 @@ import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { AppState } from "@/AppState.js"
 import { Vault } from "@/models/Vault.js"
-import { VaultKeep } from "@/models/VaultKeep.js"
+// import { VaultKeep } from "@/models/VaultKeep.js"
+import { VaultKept } from "@/models/VaultKept.js"
 
 class VaultsService{
   async deleteVault(vaultId) {
@@ -13,7 +14,7 @@ class VaultsService{
     AppState.vaultKeeps = []
     const response = await api.get(`api/vaults/${vaultId}/keeps`)
     logger.log("GOT VAULTKEEPS", response.data)
-    AppState.vaultKeeps = response.data.map(pojo =>new VaultKeep(pojo))
+    AppState.vaultKeeps = response.data.map(pojo =>new VaultKept(pojo))
   }
   async getVaults() {
       AppState.vaults = []

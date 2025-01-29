@@ -36,7 +36,7 @@ CREATE TABLE vaults(
 
 DROP TABLE vaults;
 
-ALTER TABLE vaults ADD COLUMN is_private BOOLEAN DEFAULT true; 
+ALTER TABLE vaults SET COLUMN is_private BOOLEAN DEFAULT false; 
 
 
 CREATE TABLE vaultkeeps(

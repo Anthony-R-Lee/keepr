@@ -1,7 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState';
 import KeepCard from '@/components/KeepCard.vue';
-import VaultCard from '@/components/VaultCard.vue';
+import VaultKeepCard from '@/components/VaultKeepCard.vue';
 import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
@@ -9,16 +9,13 @@ import { computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
-
 const router = useRouter()
 
 const vaults = computed(() => AppState.activeVault)
-
 const keeps = computed(() => AppState.keeps)
-
 const account = computed(() => AppState.account)
-
 const vaultKeeps = computed(() => AppState.vaultKeeps)
+
 
 watch(route, () => {
   getVaultById()
@@ -65,12 +62,14 @@ async function deleteVault() {
 
 
 <template>
-  <div class="d-flex justify-content-center">
-    <div v-if="vaults">
+  <div class="container">
+    <div v-if="vaults" class="col-8">
       <div class="card mt-4 shadow-lg box-shadow" :style="{ backgroundImage: `url(${vaults?.img})` }">
         <div v-if="account?.id == vaults.creatorId" class="delete-btn">
           <button @click="deleteVault()" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
         </div>
+      </div>
+      <div class="d-flex justify-content-center">
         <div class="justify-content-between bg-img">
           <div class="title text-light justify-content-center text-capitalize d-flex align-items-end">
             <b>
@@ -93,9 +92,11 @@ async function deleteVault() {
           <b>{{ vaultKeeps.length }} Keep</b>
         </div>
       </div>
-      <div class="masonry mt-5">
-        <div v-for="keep in keeps" :key="keep.id">
-          <KeepCard :keep="keep" />
+      <div>
+        <div class="masonry mt-5">
+          <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id">
+            <VaultKeepCard :vaultKeep="vaultKeep" />
+          </div>
         </div>
       </div>
     </div>

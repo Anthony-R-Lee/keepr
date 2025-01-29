@@ -4,6 +4,7 @@ import { AppState } from '@/AppState';
 import Pop from '@/utils/Pop';
 import { logger } from '@/utils/Logger';
 import { keepsService } from '@/services/KeepsService';
+import { Modal } from 'bootstrap';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
@@ -28,6 +29,8 @@ async function createVaultKeep() {
       vaultId: '',
       keepId: ''
     }
+    Modal.getInstance('#keepDetailModal').hide()
+
   }
   catch (error) {
     Pop.meow(error);
@@ -43,10 +46,10 @@ async function createVaultKeep() {
       <button class="btn-close p-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div v-if="activeKeep" class="d-flex justify-content-between modal-xl">
-      <div class="col-md-6 col-12">
+      <div class="col-md-6 ms-auto">
         <img class="keep-detail-img" :src="activeKeep.img" alt="Keep Image">
       </div>
-      <div class="col-md-6 col-12">
+      <div class="col-md-6 ms-auto">
         <div class="d-flex justify-content-center fs-5">
           <div class="px-3">
             <i class="mdi mdi-eye-outline p-1"></i>
