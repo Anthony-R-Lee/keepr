@@ -5,6 +5,10 @@ import { Vault } from "@/models/Vault.js"
 import { VaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService{
+  async deleteVault(vaultId) {
+    const response = await api.delete(`api/vaults/${vaultId}`)
+    logger.log("DELETED VAULT", response.data)
+  }
   async getVaultKeeps(vaultId) {
     AppState.vaultKeeps = []
     const response = await api.get(`api/vaults/${vaultId}/keeps`)

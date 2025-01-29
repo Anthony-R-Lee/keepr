@@ -6,9 +6,11 @@ import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute()
+
+const router = useRouter()
 
 const vaults = computed(() => AppState.activeVault)
 
@@ -31,6 +33,7 @@ async function getVaultById() {
   catch (error) {
     Pop.meow(error);
     logger.error("GETTING VAULT BY ID", error)
+    router.push({ name: 'Home' })
   }
 }
 
@@ -44,6 +47,20 @@ async function getVaultKeeps() {
     logger.error("GETTING VAULT KEEPS", error)
   }
 }
+
+async function deleteVault() {
+  try {
+    const confirm = await Pop.confirm(`Do you really want to delete ${vaults.value.name}?`)
+    if (!confirm) return
+    const vaultId = route.params.vaultId
+    await vaultsService.deleteVault(vaultId)
+    router.push({ name: 'Home' })
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("DELETING VAULT", error)
+  }
+}
 </script>
 
 
@@ -51,6 +68,9 @@ async function getVaultKeeps() {
   <div class="d-flex justify-content-center">
     <div v-if="vaults">
       <div class="card mt-4 shadow-lg box-shadow" :style="{ backgroundImage: `url(${vaults?.img})` }">
+        <div v-if="account?.id == vaults.creatorId" class="delete-btn">
+          <button @click="deleteVault()" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+        </div>
         <div class="justify-content-between bg-img">
           <div class="title text-light justify-content-center text-capitalize d-flex align-items-end">
             <b>
@@ -100,6 +120,16 @@ async function getVaultKeeps() {
   .bg-img {
     width: 100%;
   }
+}
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: -0.5em;
+  border-radius: 100em;
+  max-height: 10px;
+  min-width: 1em;
 }
 
 .keep-count {
