@@ -16,7 +16,7 @@ const account = computed(() => AppState.account)
 
 const keeps = computed(() => AppState.profileKeeps)
 
-const vaults = computed(() => AppState.profileVaults)
+const vaults = computed(() => AppState.myVaults)
 
 const accountData = ref({
   name: '',

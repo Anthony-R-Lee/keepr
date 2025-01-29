@@ -59,7 +59,7 @@ async function createVaultKeep() {
           </div>
           <div class="px-3">
             <i class="mdi mdi-alpha-k-box-outline p-1"></i>
-            <span>0</span>
+            <span>{{ vaultKeeps.length }}</span>
           </div>
         </div>
         <div class="px-4 pt-5 mt-5">

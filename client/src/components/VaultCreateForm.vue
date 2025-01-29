@@ -14,7 +14,7 @@ defineProps({
 
 const editableData = ref({
   name: '',
-  isPrivate: '',
+  isPrivate: false,
   description: '',
   img: ''
 })
@@ -24,7 +24,7 @@ async function createVault() {
     await vaultsService.createVault(editableData.value)
     editableData.value = {
       name: '',
-      isPrivate: '',
+      isPrivate: false,
       description: '',
       img: ''
     }
