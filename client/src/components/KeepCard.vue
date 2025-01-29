@@ -51,7 +51,11 @@ async function deleteKeep(keepId) {
 
 
 <template>
-  <div v-if="keep" class="card shadow-lg box-shadow" :style="{ backgroundImage: `url(${keep?.img})` }">
+  <div v-if="keep" class="card shadow-lg box-shadow">
+    <!-- <div v-if="keep" class="card shadow-lg box-shadow" :style="{ backgroundImage: `url(${keep?.img})` }"> -->
+    <div>
+      <img :src="keep.img" alt="" class="card d-flex gap-5">
+    </div>
     <div>
 
       <div v-if="account?.id == keep.creatorId" class="delete-btn">
@@ -108,6 +112,8 @@ async function deleteKeep(keepId) {
 
   .bg-img {
     width: 100%;
+    background-position: center;
+    background-size: cover;
   }
 
   .profile-img {
