@@ -30,12 +30,17 @@ public class ProfilesService
     return keeps;
   }
 
-  internal List<Vault> GetUserVaults(string profileId)
+  internal List<Vault> GetUserVaults(string profileId, string userId)
   {
-    // Vault vault = _vaultsService.GetVaultById(profileId);
-    List<Vault> vaults = _repository.GetUserVaults(profileId);
 
-    if (vaults == null) throw new Exception($"No profile vaults at id: {profileId}!");
+    List<Vault> vaults = GetUserVaults(profileId);
+
+    return vaults.FindAll(vault => vault.CreatorId == userId || vault.IsPrivate == false);
+  }
+
+  private List<Vault> GetUserVaults(string profileId)
+  {
+    List<Vault> vaults = _repository.GetUserVaults(profileId);
 
     return vaults;
   }

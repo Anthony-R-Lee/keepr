@@ -61,4 +61,23 @@ public class ProfilesRepository
     }, new { profileId }).ToList();
     return vaults;
   }
+
+  internal List<Vault> GetAll()
+  {
+    string sql = @"
+      SELECT 
+      vaults.*,
+      accounts.*
+      FROM vaults
+      JOIN accounts ON accounts.id = vaults.creator_id
+      WHERE accounts.id = vaults.creator_id;
+      ";
+
+    List<Vault> vaults = _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }).ToList();
+    return vaults;
+  }
 }

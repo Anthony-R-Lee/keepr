@@ -100,7 +100,7 @@ public class VaultsRepository : IRepository<Vault>
     throw new NotImplementedException();
   }
 
-  internal Vault GetById(string userId)
+  internal Vault GetVaultsByProfileId(string userId)
   {
     string sql = @"
     SELECT
@@ -110,11 +110,47 @@ public class VaultsRepository : IRepository<Vault>
     JOIN accounts ON accounts.id = vaults.creator_id
     WHERE vaults.id = @userId;";
 
-    Vault vault = _db.Query(sql, (Vault vault, Profile account) =>
+    Vault vaults = _db.Query(sql, (Vault vault, Profile account) =>
     {
       vault.Creator = account;
       return vault;
     }, new { userId }).SingleOrDefault();
-    return vault;
+    return vaults;
+  }
+
+  internal List<Vault> GetUserVaults(string profileId)
+  {
+    string sql = @"
+      SELECT 
+      vaults.*,
+      accounts.* 
+      FROM vaults
+      JOIN accounts ON accounts.id = vaults.creator_id
+      WHERE vaults.creator_id = @profileId;";
+
+    List<Vault> vaults = _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { profileId }).ToList();
+    return vaults;
+  }
+
+  internal Vault GetById(string profileId)
+  {
+    string sql = @"
+    SELECT
+    vaults.*,
+    accounts.*
+    FROM vaults
+    JOIN accounts ON accounts.id = vaults.creator_id
+    WHERE vaults.id = @profileId;";
+
+    Vault vaults = _db.Query(sql, (Vault vault, Profile account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }, new { profileId }).SingleOrDefault();
+    return vaults;
   }
 }

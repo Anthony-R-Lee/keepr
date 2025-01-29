@@ -51,13 +51,12 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
-      SELECT 
+        SELECT 
       vaults.*,
-      accounts.* 
+      accounts.*
       FROM vaults
       JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE vaults.creator_id = accounts.id;
-
+      WHERE accounts.id = "6758a99b25f750aecd7e2ece";
       SELECT 
       vaults.*,
       accounts.*

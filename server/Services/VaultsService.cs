@@ -58,22 +58,56 @@ public class VaultsService
 
     return vaults;
   }
-  internal Vault GetVaultById(string userId)
-  {
-    Vault vault = _repository.GetById(userId);
 
-    if (vault.IsPrivate == true && vault.CreatorId != userId || vault == null) throw new Exception($"Vault is private");
+  // internal List<Vault> GetVaultsByProfileId(string userId)
+  // {
+  //   GetVaultsByProfileId(userId);
+
+  //   return GetVaultsByProfileId(userId);
+  // }
+
+  // internal Vault GetVaultById(int vaultId, string userId)
+  // {
+  //   Vault vault = _repository.GetById(vaultId);
+
+  //   if (vault.IsPrivate == true && vault.CreatorId != userId || vault == null) throw new Exception($"Vault is private");
+
+  //   return vault;
+  // }
+
+  // internal List<Vault> GetVaultsByProfileId(string userId)
+  // {
+  //   List<Vault> vault = _repository.GetVaultsByProfileId(userId);
+
+  //   if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception($"Vault is null id");
+
+  //   return vault;
+  // }
+  private Vault GetUserVaults(string userId)
+  {
+    Vault vault = _repository.GetVaultsByProfileId(userId);
+
+    if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception($"Invalid user id: {userId}");
 
     return vault;
   }
 
-  internal Vault GetVaultById(int vaultId, string userId)
+  private Vault GetUserVaultById(int vaultId)
   {
     Vault vault = _repository.GetById(vaultId);
 
-    if (vault.IsPrivate == true && vault.CreatorId != userId || vault == null) throw new Exception($"Vault is private");
+    if (vault == null) throw new Exception($"Invalid vault id: {vaultId}");
 
     return vault;
   }
 
+
+  internal Vault GetVaultById(int vaultId, string profileId)
+  {
+    Vault vault = GetUserVaultById(vaultId);
+
+    if (vault.CreatorId != profileId && vault.IsPrivate == true) throw new Exception($"Invalid user vault id: {vaultId}");
+
+    return vault;
+  }
 }
