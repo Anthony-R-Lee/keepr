@@ -47,7 +47,15 @@ async function getKeeps() {
 </template>
 
 <style scoped lang="scss">
-.masonry {
-  column-count: 4;
+@media screen and (min-width: 768px) {
+  .masonry {
+    column-count: 4;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .masonry {
+    column-count: 2;
+  }
 }
 </style>

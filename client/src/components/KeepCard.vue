@@ -120,6 +120,12 @@ async function deleteKeep(keepId) {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .profile-img {
+    opacity: 0;
+  }
+}
+
 
 
 .title {

@@ -177,8 +177,15 @@ async function deleteVault() {
   border-radius: 10px;
 }
 
+@media screen and (min-width: 768px) {
+  .masonry {
+    column-count: 4;
+  }
+}
 
-.masonry {
-  column-count: 4;
+@media screen and (max-width: 768px) {
+  .masonry {
+    column-count: 2;
+  }
 }
 </style>

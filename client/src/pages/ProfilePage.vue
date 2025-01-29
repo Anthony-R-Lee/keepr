@@ -106,8 +106,16 @@ async function getProfileById() {
 
 
 <style lang="scss" scoped>
-.masonry {
-  column-count: 4;
+@media screen and (min-width: 768px) {
+  .masonry {
+    column-count: 4;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .masonry {
+    column-count: 2;
+  }
 }
 
 .profile-img {
