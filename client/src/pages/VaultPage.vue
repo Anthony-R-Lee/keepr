@@ -62,25 +62,27 @@ async function deleteVault() {
 
 
 <template>
-  <div class="container">
-    <div v-if="vaults" class="col-8">
-      <div class="card mt-4 shadow-lg box-shadow" :style="{ backgroundImage: `url(${vaults?.img})` }">
-        <div v-if="account?.id == vaults.creatorId" class="delete-btn">
-          <button @click="deleteVault()" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
-        </div>
-      </div>
+  <div class="container-fluid">
+    <div v-if="vaults" class="">
       <div class="d-flex justify-content-center">
-        <div class="justify-content-between bg-img">
-          <div class="title text-light justify-content-center text-capitalize d-flex align-items-end">
-            <b>
-              {{ vaults.name }}
-            </b>
+        <div class="card mt-4 shadow-lg box-shadow col-md-12" :style="{ backgroundImage: `url(${vaults?.img})` }">
+          <div class=" bg-img">
+            <div v-if="account?.id == vaults.creatorId" class="delete-btn">
+              <button @click="deleteVault()" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+            </div>
           </div>
-          <div class="creator-name text-light justify-content-center text-capitalize d-flex align-items-end">
-            <b>
-              by
-              {{ vaults.creator.name }}
-            </b>
+          <div class="align-self-end text-shadow pt-5 mt-5">
+            <div class="title text-light justify-content-center text-capitalize d-flex align-self-end">
+              <b>
+                {{ vaults.name }}
+              </b>
+            </div>
+            <div class="creator-name text-light justify-content-center text-capitalize d-flex align-self-end">
+              <b>
+                by
+                {{ vaults.creator.name }}
+              </b>
+            </div>
           </div>
         </div>
       </div>
@@ -93,7 +95,7 @@ async function deleteVault() {
         </div>
       </div>
       <div>
-        <div class="masonry mt-5">
+        <div class="masonry mt-5 justify-content-center">
           <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id">
             <VaultKeepCard :vaultKeep="vaultKeep" />
           </div>
@@ -115,12 +117,35 @@ async function deleteVault() {
   // margin: 1.75em;
   border: none;
   width: 30dvw;
-  position: relative;
   display: inline-block;
 
   .bg-img {
     width: 100%;
   }
+}
+
+.title {
+  margin: 0.5em;
+  margin-bottom: 1em;
+  // padding: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: -0.5em;
+  border-radius: 5px;
+  font-size: 2em;
+  text-shadow: 1px 1px #000000;
+  width: 90%;
+}
+
+.creator-name {
+  margin: 0.5em;
+  // padding: 0.5em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border-radius: 5px;
+  font-size: 1em;
+  text-shadow: 1px 1px #000000;
+  width: 90%;
 }
 
 .delete-btn {
@@ -144,35 +169,8 @@ async function deleteVault() {
   border-radius: 10px;
 }
 
-.title {
-  margin: 0.5em;
-  margin-bottom: 1em;
-  padding: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  border-radius: 5px;
-  font-size: 2em;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.738);
-  position: absolute;
-  bottom: 0;
-  width: 90%;
-}
 
 .masonry {
   column-count: 4;
-}
-
-
-.creator-name {
-  margin: 0.5em;
-  padding: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  border-radius: 5px;
-  font-size: 1em;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.738);
-  position: absolute;
-  bottom: 0;
-  width: 90%;
 }
 </style>

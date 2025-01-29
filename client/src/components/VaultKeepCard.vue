@@ -3,6 +3,7 @@ import { AppState } from '@/AppState';
 import { Keep } from '@/models/Keep';
 import { VaultKeep } from '@/models/VaultKeep';
 import { VaultKept } from '@/models/VaultKept';
+import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed } from 'vue';
@@ -17,7 +18,7 @@ async function removeVaultKeep(vaultKeepId) {
   try {
     const confirm = await Pop.confirm(`Do you really want to remove ${props.vaultKeep.name}?`)
     if (!confirm) return
-
+    await vaultsService.removeVaultKeep(vaultKeepId)
   }
   catch (error) {
     Pop.meow(error);
@@ -28,10 +29,11 @@ async function removeVaultKeep(vaultKeepId) {
 
 
 <template>
-  <div v-if="vaultKeep" class="card shadow-lg box-shadow" :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
+  <div v-if="vaultKeep" class="ms-4 my-1 card shadow-lg box-shadow"
+    :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
       <div v-if="account?.id == vaultKeep.creatorId" class="delete-btn">
-        <button @click="removeVaultKeep(props.vaultKeep.id)" class="btn btn-danger"><i
+        <button @click="removeVaultKeep(props.vaultKeep.vaultKeepId)" class="btn btn-danger"><i
             class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
@@ -48,16 +50,12 @@ async function removeVaultKeep(vaultKeepId) {
 
 <style lang="scss" scoped>
 .card {
-  // min-height: 10em;
   min-height: 20em;
   background-position: center;
   background-size: cover;
-  // margin: 1.75em;
   border: none;
-  width: 100%;
-  position: relative;
-  display: inline-block;
-  padding: 0;
+  // margin: 5em;
+  max-width: 20dvw;
 
   .bg-img {
     width: 100%;

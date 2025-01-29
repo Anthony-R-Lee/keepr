@@ -6,6 +6,12 @@ import { Vault } from "@/models/Vault.js"
 import { VaultKept } from "@/models/VaultKept.js"
 
 class VaultsService{
+  async removeVaultKeep(vaultKeepId) {
+    const response = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
+    logger.log("REMOVED VAULTKEEP", response.data)
+    const index = AppState.vaultKeeps.findIndex(vaultKeep => vaultKeep.id == vaultKeepId)
+    AppState.vaultKeeps.splice(index, 1)
+  }
   async deleteVault(vaultId) {
     const response = await api.delete(`api/vaults/${vaultId}`)
     logger.log("DELETED VAULT", response.data)
@@ -25,8 +31,8 @@ class VaultsService{
   async createVault(vaultData) {
     const response = await api.post('api/vaults', vaultData)
       logger.log("CREATED VAULT", response.data)
-      const keep = new Vault(response.data)
-      AppState.vaults.unshift(keep)
+      const vault = new Vault(response.data)
+      AppState.vaults.unshift(vault)
     }
 
     async getVaultById(vaultId) {
