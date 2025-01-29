@@ -33,8 +33,8 @@ async function removeVaultKeep(vaultKeepId) {
     :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
       <div v-if="account?.id == vaultKeep.creatorId" class="delete-btn">
-        <button @click="removeVaultKeep(props.vaultKeep.vaultKeepId)" class="btn btn-danger"><i
-            class="mdi mdi-close"></i></button>
+        <button @click="removeVaultKeep(props.vaultKeep.vaultKeepId)" :title="`Remove Vault Keep${vaultKeep.name}`"
+          class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
         <div class="title text-light text-capitalize d-flex align-items-end">
@@ -69,16 +69,23 @@ async function removeVaultKeep(vaultKeepId) {
     border-radius: 50%;
     max-height: 3em;
   }
-}
 
-.delete-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: -0.5em;
-  border-radius: 100em;
-  max-height: 10px;
-  min-width: 1em;
+  .delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -0.5em;
+    border-radius: 100em;
+    max-height: 10px;
+    min-width: 1em;
+    opacity: 0;
+  }
+
+  :hover .delete-btn {
+    opacity: 1;
+    transition: all .2s ease;
+  }
+
 }
 
 

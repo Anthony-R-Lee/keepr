@@ -55,6 +55,8 @@ defineProps({
   .bg-img {
     width: 100%;
   }
+
+
 }
 
 .title {

@@ -68,7 +68,8 @@ async function deleteVault() {
         <div class="card mt-4 shadow-lg box-shadow col-md-12" :style="{ backgroundImage: `url(${vaults?.img})` }">
           <div class=" bg-img">
             <div v-if="account?.id == vaults.creatorId" class="delete-btn">
-              <button @click="deleteVault()" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+              <button @click="deleteVault()" :title="`Delete ${vaults.name}`" class="btn btn-danger"><i
+                  class="mdi mdi-close"></i></button>
             </div>
           </div>
           <div class="align-self-end text-shadow pt-5 mt-5">
@@ -122,6 +123,23 @@ async function deleteVault() {
   .bg-img {
     width: 100%;
   }
+
+  .delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -0.5em;
+    border-radius: 100em;
+    max-height: 10px;
+    min-width: 1em;
+    opacity: 0;
+  }
+
+  :hover .delete-btn {
+    opacity: 1;
+    transition: all .2s ease;
+  }
+
 }
 
 .title {
@@ -146,16 +164,6 @@ async function deleteVault() {
   font-size: 1em;
   text-shadow: 1px 1px #000000;
   width: 90%;
-}
-
-.delete-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: -0.5em;
-  border-radius: 100em;
-  max-height: 10px;
-  min-width: 1em;
 }
 
 .keep-count {

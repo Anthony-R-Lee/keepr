@@ -55,7 +55,8 @@ async function deleteKeep(keepId) {
     <div>
 
       <div v-if="account?.id == keep.creatorId" class="delete-btn">
-        <button @click="deleteKeep(props.keep.id)" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+        <button @click="deleteKeep(props.keep.id)" :title="`Delete ${keep.name}`" class="btn btn-danger"><i
+            class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
         <div @click="getKeepById(props.keep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
@@ -89,6 +90,22 @@ async function deleteKeep(keepId) {
   position: relative;
   display: inline-block;
 
+  .delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: -0.5em;
+    border-radius: 100em;
+    max-height: 10px;
+    min-width: 1em;
+    opacity: 0;
+  }
+
+  :hover .delete-btn {
+    opacity: 1;
+    transition: all .2s ease;
+  }
+
   .bg-img {
     width: 100%;
   }
@@ -103,15 +120,6 @@ async function deleteKeep(keepId) {
   }
 }
 
-.delete-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: -0.5em;
-  border-radius: 100em;
-  max-height: 10px;
-  min-width: 1em;
-}
 
 
 .title {
