@@ -7,6 +7,8 @@ import { keepsService } from '@/services/KeepsService';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
+const account = computed(() => AppState.account)
+
 const vaultKeeps = computed(() => AppState.vaultKeeps)
 
 const myVaults = computed(() => AppState.myVaults)
@@ -67,7 +69,7 @@ async function createVaultKeep() {
           {{ activeKeep.description }}
         </div>
         <div class="d-flex justify-content-between align-items-end px-5">
-          <form class="d-flex align-items-end dropdown-input" @submit.prevent="createVaultKeep()">
+          <form v-if="account" class="d-flex align-items-end dropdown-input" @submit.prevent="createVaultKeep()">
 
             <select v-model="editableData.vaultId" class="form-select vault-select mx-2" aria-label="Default" required>
               <option value="" disabled selected>VAULTS</option>
