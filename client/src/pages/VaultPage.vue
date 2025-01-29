@@ -62,6 +62,8 @@ async function deleteVault() {
 
 
 <template>
+  <!-- FIXME I cannot access my own private vaults (look at the backend) -->
+  <!-- FIXME test getting keeps in private vault and deleting private vault keeps and deleting private vault -->
   <div class="container-fluid">
     <div v-if="vaults" class="">
       <div class="d-flex justify-content-center">

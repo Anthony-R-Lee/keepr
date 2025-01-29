@@ -61,15 +61,14 @@ async function createVault() {
           maxlength="1000">
         <label for="img">Image</label>
       </div>
-      <!-- <div class="form-check form-floating mb-4 col-12 p-3 d-flex justify-content-between">
-        <input v-model="editableData.isPrivate" class="form-check-input form-control" type="checkbox" value=""
-          id="isPrivate" checked>
+      <div class="form-check form-floating mb-4 col-12 p-3 d-flex justify-content-between">
+        <input v-model="editableData.isPrivate" class="form-check-input form-control" type="checkbox" id="isPrivate">
         <label class="form-check-label" for="isPrivate">
           <p>
             Make Vault Private?
           </p>
         </label>
-      </div> -->
+      </div>
     </div>
     <div class="d-flex justify-content-end pt-3">
       <div class="text-end col-3">

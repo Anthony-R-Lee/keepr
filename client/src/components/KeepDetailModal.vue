@@ -41,6 +41,7 @@ async function createVaultKeep() {
 
 
 <template>
+  <!-- FIXME kept count is not working -->
   <div class="bg-body" id="keepDetailModal" modalId="keepDetailModal">
     <div class="d-flex justify-content-end">
       <button class="btn-close mb-1" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -73,32 +74,30 @@ async function createVaultKeep() {
           <div class="text-dark d-flex justify-content-center mx-3 mb-5 px-5">
             {{ activeKeep.description }}
           </div>
-          <div class="d-flex justify-content-lg-between">
-            <div class="px-5">
-              <form v-if="account" class="d-flex align-items-end dropdown-input" @submit.prevent="createVaultKeep()">
+          <div class="px-5">
+            <form v-if="account" class="d-flex align-items-end dropdown-input" @submit.prevent="createVaultKeep()">
 
-                <select v-model="editableData.vaultId"
-                  class="form-select d-flex justify-content-start vault-select mx-2" aria-label="Default" required>
-                  <option value="" disabled selected>VAULTS</option>
-                  <option v-for="vault in myVaults" :key="vault.id" :value="vault.id">
-                    {{ vault.name }}
-                  </option>
-                </select>
-                <div>
-                  <button class="btn btn-secondary text-light" :title="`Save ${activeKeep?.name}`"
-                    type="submit">save</button>
-                </div>
-              </form>
-              <RouterLink class="profile-info d-flex align-items-center pe-3 text-dark" :title="activeKeep.creator.name"
-                :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
-                <div>
-                  <img :src="activeKeep.creator.picture" alt="">
-                </div>
-                <div>
-                  <b>{{ activeKeep.creator.name }}</b>
-                </div>
-              </RouterLink>
-            </div>
+              <select v-model="editableData.vaultId" class="form-select d-flex justify-content-start vault-select mx-2"
+                aria-label="Default" required>
+                <option value="" disabled selected>VAULTS</option>
+                <option v-for="vault in myVaults" :key="vault.id" :value="vault.id">
+                  {{ vault.name }}
+                </option>
+              </select>
+              <div>
+                <button class="btn btn-secondary text-light" :title="`Save ${activeKeep?.name}`"
+                  type="submit">save</button>
+              </div>
+            </form>
+            <RouterLink class="profile-info d-flex align-items-center pe-3 text-dark" :title="activeKeep.creator.name"
+              :to="{ name: 'Profile', params: { profileId: activeKeep.creatorId } }">
+              <div>
+                <img :src="activeKeep.creator.picture" alt="">
+              </div>
+              <div>
+                <b>{{ activeKeep.creator.name }}</b>
+              </div>
+            </RouterLink>
           </div>
         </div>
       </div>

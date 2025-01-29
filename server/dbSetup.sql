@@ -65,3 +65,4 @@ CREATE TABLE vaultkeeps(
       WHERE vaults.creator_id = "6758aa1356b96ff157d7af1c";
       -- 6758aa1356b96ff157d7af1c
 
+DELETE FROM vaults;

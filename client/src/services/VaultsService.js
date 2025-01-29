@@ -9,6 +9,7 @@ class VaultsService{
   async removeVaultKeep(vaultKeepId) {
     const response = await api.delete(`api/vaultkeeps/${vaultKeepId}`)
     logger.log("REMOVED VAULTKEEP", response.data)
+    // FIXME you are splicing the wrong thing out of the array
     const index = AppState.vaultKeeps.findIndex(vaultKeep => vaultKeep.id == vaultKeepId)
     AppState.vaultKeeps.splice(index, 1)
   }

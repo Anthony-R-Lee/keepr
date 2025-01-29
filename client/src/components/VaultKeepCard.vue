@@ -7,12 +7,27 @@ import { vaultsService } from '@/services/VaultsService';
 import { logger } from '@/utils/Logger';
 import Pop from '@/utils/Pop';
 import { computed } from 'vue';
+import ModalWrapper from './ModalWrapper.vue';
+import KeepDetailModal from './KeepDetailModal.vue';
+import { keepsService } from '@/services/KeepsService';
+import { Modal } from 'bootstrap';
 
 const account = computed(() => AppState.account)
 
 const props = defineProps({
   vaultKeep: { type: VaultKept }
 })
+
+async function getKeepById(keepId) {
+  try {
+    await keepsService.getKeepById(keepId)
+    Modal.getInstance('#keepDetailModal').show()
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error("GETTING KEEP BY ID", error)
+  }
+}
 
 async function removeVaultKeep(vaultKeepId) {
   try {
@@ -29,6 +44,7 @@ async function removeVaultKeep(vaultKeepId) {
 
 
 <template>
+  <!-- NOTE open keep modal when I click on this card -->
   <div v-if="vaultKeep" class="ms-4 my-1 card shadow-lg box-shadow"
     :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
@@ -37,7 +53,8 @@ async function removeVaultKeep(vaultKeepId) {
           class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
-        <div class="title text-light text-capitalize d-flex align-items-end">
+        <div @click="getKeepById(props.vaultKeep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"
+          class="title text-light text-capitalize d-flex align-items-end">
           <b>
             {{ vaultKeep.name }}
           </b>
@@ -45,6 +62,10 @@ async function removeVaultKeep(vaultKeepId) {
       </div>
     </div>
   </div>
+  <ModalWrapper class="modal-xl" id="keepDetailModal" modalId="keepDetailModal">
+
+    <KeepDetailModal />
+  </ModalWrapper>
 </template>
 
 
