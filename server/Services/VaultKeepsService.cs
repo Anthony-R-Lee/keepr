@@ -19,7 +19,7 @@ public class VaultKeepsService
   {
     Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, vaultKeepData.CreatorId);
 
-    if (vault.CreatorId != vaultKeepData.CreatorId) throw new Exception("You can't add a keep to your own vault!");
+    if (vault.CreatorId != vaultKeepData.CreatorId) throw new Exception($"Invalid vault id: {vaultKeepData.VaultId}!");
 
     VaultKeep vaultkeep = _repository.Create(vaultKeepData);
     return vaultkeep;
@@ -27,7 +27,7 @@ public class VaultKeepsService
 
   internal List<VaultKept> GetKeepsInVault(int vaultId, string userId)
   {
-    _vaultsService.GetVaultKeepById(vaultId, userId);
+    _vaultsService.GetVaultById(vaultId, userId);
 
     List<VaultKept> vaultKeeps = _repository.GetKeepsInVault(vaultId);
 

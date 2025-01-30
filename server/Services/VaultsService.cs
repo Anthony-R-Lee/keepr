@@ -19,14 +19,25 @@ public class VaultsService
     return vault;
   }
 
-  internal Vault GetVaultById(int vaultId)
+
+  private Vault GetVaultById(int vaultId)
   {
     Vault vault = _repository.GetById(vaultId);
 
-    if (vault == null || vault.IsPrivate == true) throw new Exception($"Invalid vault id: {vaultId} or vault is private");
+    if (vault == null) throw new Exception($"Invalid vault id: {vaultId}");
 
     return vault;
   }
+
+  internal Vault GetVaultById(int vaultId, string profileId)
+  {
+    Vault vault = GetUserVaultKeepsById(vaultId);
+
+    if (vault.CreatorId != profileId && vault.IsPrivate == true) throw new Exception($"Invalid user vault id: {vaultId}");
+
+    return vault;
+  }
+
   internal Vault UpdateVault(int vaultId, string userId, Vault vaultData)
   {
     Vault vault = GetVaultById(vaultId);
@@ -59,23 +70,7 @@ public class VaultsService
     return vaults;
   }
 
-  private Vault GetUserVaults(string userId)
-  {
-    Vault vault = _repository.GetVaultsByProfileId(userId);
 
-    if (vault.IsPrivate == true && vault.CreatorId != userId) throw new Exception($"Invalid user id: {userId}");
-
-    return vault;
-  }
-
-  private Vault GetUserVaultById(int vaultId)
-  {
-    Vault vault = _repository.GetById(vaultId);
-
-    if (vault == null) throw new Exception($"Invalid vault id: {vaultId}");
-
-    return vault;
-  }
   private Vault GetUserVaultKeepsById(int vaultId)
   {
     Vault vault = _repository.GetById(vaultId);
@@ -86,21 +81,6 @@ public class VaultsService
   }
 
 
-  internal Vault GetVaultById(int vaultId, string profileId)
-  {
-    Vault vault = GetUserVaultById(vaultId);
 
-    if (vault.CreatorId == profileId && vault.IsPrivate == true) throw new Exception($"Invalid user vault id: {vaultId}");
 
-    return vault;
-  }
-
-  internal Vault GetVaultKeepById(int vaultId, string profileId)
-  {
-    Vault vault = GetUserVaultKeepsById(vaultId);
-
-    if (vault.CreatorId != profileId && vault.IsPrivate == false || vault.CreatorId == profileId && vault.IsPrivate == true) throw new Exception($"Invalid user vault id: {vaultId}");
-
-    return vault;
-  }
 }
