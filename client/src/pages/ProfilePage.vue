@@ -83,7 +83,7 @@ async function getProfileById() {
         <div class="col-md-7 justify-content-center text-start d-flex py-3">
           <h1>Vaults</h1>
         </div>
-        <div class="masonry mx-5 px-5">
+        <div class="masonry mx-5 px-md-5">
           <div v-for="vault in vaults" :key="vault.id">
             <VaultCard :vault="vault" />
           </div>

@@ -21,7 +21,7 @@ function toggleTheme() {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-sm navbar-warning bg-page px-3 border-bottom border-warning ">
+  <nav class="navbar navbar-expand-sm navbar-warning bg-page px-md-3 border-bottom border-warning ">
     <div class="col-md-2 d-flex align-items-center">
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex flex-column align-items-center">
@@ -50,7 +50,7 @@ function toggleTheme() {
       aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse col-md-2" id="navbarText">
+    <div class="collapse navbar-collapse col-md-2 profile-info" id="navbarText">
       <ul class="navbar-nav me-auto">
       </ul>
       <!-- LOGIN COMPONENT HERE -->
@@ -94,6 +94,18 @@ function toggleTheme() {
 @media screen and (min-width: 576px) {
   nav {
     height: 64px;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .home-btn {
+    /* opacity: 0 */
+    display: none;
+  }
+
+  nav {
+    justify-content: space-between;
   }
 }
 </style>

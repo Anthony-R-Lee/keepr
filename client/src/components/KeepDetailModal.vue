@@ -71,14 +71,15 @@ async function createVaultKeep() {
 
             </div>
           </div>
-          <div class="text-dark d-flex justify-content-center mx-3 mb-5 px-5">
+          <div class="text-dark d-flex justify-content-center mx-3 mb-5 px-md-5">
             {{ activeKeep.description }}
           </div>
           <div class="px-5">
             <form v-if="account" class="d-flex align-items-end dropdown-input" @submit.prevent="createVaultKeep()">
 
-              <select v-model="editableData.vaultId" class="form-select d-flex justify-content-start vault-select mx-2"
-                aria-label="Default" required>
+              <select v-model="editableData.vaultId"
+                class="form-select d-flex justify-content-start vault-select mx-1 mx-md-2" aria-label="Default"
+                required>
                 <option value="" disabled selected>VAULTS</option>
                 <option v-for="vault in myVaults" :key="vault.id" :value="vault.id">
                   {{ vault.name }}
@@ -120,19 +121,28 @@ async function createVaultKeep() {
   margin: 0;
 }
 
-.profile-info {
-  position: absolute;
-  bottom: 1em;
-  right: 0;
-}
 
 
 @media screen and (max-width: 992px) {
   .dropdown-input {
-    position: absolute;
-    bottom: 1em;
+    position: relative;
+    bottom: 0;
     left: 0;
     border-color: black;
+    margin-bottom: 1em;
+  }
+
+  .profile-info {
+    position: relative;
+    bottom: 0;
+    right: 0;
+  }
+
+  .profile-info img {
+    border-radius: 50%;
+    max-height: 2em;
+    margin-right: 5px;
+    margin: 4px;
   }
 }
 
@@ -143,12 +153,18 @@ async function createVaultKeep() {
     left: 50%;
     border-color: black;
   }
-}
 
-.profile-info img {
-  border-radius: 50%;
-  max-height: 2em;
-  margin-right: 5px;
-  margin: 4px;
+  .profile-info {
+    position: absolute;
+    bottom: 1em;
+    right: 0;
+  }
+
+  .profile-info img {
+    border-radius: 50%;
+    max-height: 2em;
+    margin-right: 5px;
+    margin: 4px;
+  }
 }
 </style>
