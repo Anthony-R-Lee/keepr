@@ -50,8 +50,8 @@ async function removeVaultKeep(vaultKeepId) {
   <div v-if="vaultKeep" class="ms-1 my-2 card shadow-lg box-shadow"
     :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
-      <div class="delete-btn">
-        <button v-if="account.id != activeVault?.creatorId" @click="removeVaultKeep(props.vaultKeep.vaultKeepId)"
+      <div v-if="account" class="delete-btn">
+        <button v-if="account?.id == activeVault?.creatorId" @click="removeVaultKeep(props.vaultKeep.vaultKeepId)"
           :title="`Remove Vault Keep${vaultKeep.name}`" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
