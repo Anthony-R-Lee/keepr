@@ -4,6 +4,7 @@ import { AppState } from "@/AppState.js"
 import { Vault } from "@/models/Vault.js"
 // import { VaultKeep } from "@/models/VaultKeep.js"
 import { VaultKept } from "@/models/VaultKept.js"
+import { VaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService{
   async removeVaultKeep(vaultKeepId) {

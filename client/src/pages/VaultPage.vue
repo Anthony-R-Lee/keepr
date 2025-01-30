@@ -62,10 +62,10 @@ async function deleteVault() {
 
 
 <template>
-  <!-- FIXME I cannot access my own private vaults (look at the backend) -->
+  <!-- NOTE I cannot access my own private vaults (look at the backend) -->
   <!-- FIXME test getting keeps in private vault and deleting private vault keeps and deleting private vault -->
   <div class="container-fluid">
-    <div v-if="vaults" class="">a
+    <div v-if="vaults" class="">
       <div class="d-flex justify-content-center">
         <div class="card mt-4 shadow-lg box-shadow col-md-12" :style="{ backgroundImage: `url(${vaults?.img})` }">
           <div class=" bg-img">
@@ -97,11 +97,9 @@ async function deleteVault() {
           <b>{{ vaultKeeps.length }} Keep</b>
         </div>
       </div>
-      <div>
-        <div class="masonry mt-5 justify-content-center">
-          <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id">
-            <VaultKeepCard :vaultKeep="vaultKeep" />
-          </div>
+      <div class="masonry pt-5 justify-content-center">
+        <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id">
+          <VaultKeepCard :vaultKeep="vaultKeep" />
         </div>
       </div>
     </div>

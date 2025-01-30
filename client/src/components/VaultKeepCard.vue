@@ -45,7 +45,7 @@ async function removeVaultKeep(vaultKeepId) {
 
 <template>
   <!-- NOTE open keep modal when I click on this card -->
-  <div v-if="vaultKeep" class="ms-4 my-1 card shadow-lg box-shadow"
+  <div v-if="vaultKeep" class="ms-4 my-2 card shadow-lg box-shadow"
     :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
       <div v-if="account?.id == vaultKeep.creatorId" class="delete-btn">
@@ -71,12 +71,15 @@ async function removeVaultKeep(vaultKeepId) {
 
 <style lang="scss" scoped>
 .card {
+  // min-height: 10em;
   min-height: 20em;
   background-position: center;
   background-size: cover;
+  // margin: 1.75em;
   border: none;
-  // margin: 5em;
-  max-width: 20dvw;
+  width: 100%;
+  position: relative;
+  display: inline-block;
 
   .bg-img {
     width: 100%;
