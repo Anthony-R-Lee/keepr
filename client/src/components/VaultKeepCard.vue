@@ -11,8 +11,10 @@ import ModalWrapper from './ModalWrapper.vue';
 import KeepDetailModal from './KeepDetailModal.vue';
 import { keepsService } from '@/services/KeepsService';
 import { Modal } from 'bootstrap';
+import { Vault } from '@/models/Vault';
 
 const account = computed(() => AppState.account)
+const activeVault = computed(() => AppState.activeVault)
 
 const props = defineProps({
   vaultKeep: { type: VaultKept }
@@ -45,12 +47,12 @@ async function removeVaultKeep(vaultKeepId) {
 
 <template>
   <!-- NOTE open keep modal when I click on this card -->
-  <div v-if="vaultKeep" class="ms-4 my-2 card shadow-lg box-shadow"
+  <div v-if="vaultKeep" class="ms-1 my-2 card shadow-lg box-shadow"
     :style="{ backgroundImage: `url(${vaultKeep?.img})` }">
     <div>
-      <div v-if="account?.id == vaultKeep.creatorId" class="delete-btn">
-        <button @click="removeVaultKeep(props.vaultKeep.vaultKeepId)" :title="`Remove Vault Keep${vaultKeep.name}`"
-          class="btn btn-danger"><i class="mdi mdi-close"></i></button>
+      <div class="delete-btn">
+        <button v-if="account.id != activeVault?.creatorId" @click="removeVaultKeep(props.vaultKeep.vaultKeepId)"
+          :title="`Remove Vault Keep${vaultKeep.name}`" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
       </div>
       <div class="justify-content-between bg-img">
         <div @click="getKeepById(props.vaultKeep.id)" data-bs-toggle="modal" data-bs-target="#keepDetailModal"

@@ -64,7 +64,7 @@ async function deleteVault() {
 <template>
   <!-- NOTE I cannot access my own private vaults (look at the backend) -->
   <!-- FIXME test getting keeps in private vault and deleting private vault keeps and deleting private vault -->
-  <div class="container-fluid">
+  <div class="container">
     <div v-if="vaults" class="">
       <div class="d-flex justify-content-center">
         <div class="card mt-4 shadow-lg box-shadow col-md-12" :style="{ backgroundImage: `url(${vaults?.img})` }">
