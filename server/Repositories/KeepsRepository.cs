@@ -39,9 +39,8 @@ public class KeepsRepository : IRepository<Keep>
       SELECT 
       keeps.*,
       accounts.* 
-      FROM keeps_with_vaultkeep_count_view keeps
-      JOIN accounts ON accounts.id = keeps.creator_id
-ORDER BY keeps.created_at ASC;";
+      FROM keeps
+      JOIN accounts ON accounts.id = keeps.creator_id;";
 
     List<Keep> keeps = _db.Query(sql, (Keep keep, Profile account) =>
     {
@@ -57,7 +56,7 @@ ORDER BY keeps.created_at ASC;";
       SELECT
       keeps.*,
       accounts.*
-      FROM keeps
+      FROM keeps_with_vaultkeep_count_view keeps
       JOIN accounts on accounts.id = keeps.creator_id
       WHERE keeps.id = @id;";
 

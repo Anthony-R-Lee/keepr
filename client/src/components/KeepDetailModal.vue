@@ -67,7 +67,7 @@ async function createVaultKeep() {
             </div>
             <div class="px-3">
               <i :title="`Keep count for ${activeKeep.name}`" class="mdi mdi-alpha-k-box-outline p-1"></i>
-              <!-- <span>{{ props.keep.kept }}</span> -->
+              <span>{{ props.keep?.kept }}</span>
             </div>
           </div>
           <div class="px-2 pt-3 mt-3 px-lg-4 pt-lg-5 mt-lg-4">

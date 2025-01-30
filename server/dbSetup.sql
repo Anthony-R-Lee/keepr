@@ -51,20 +51,29 @@ CREATE TABLE vaultkeeps(
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 )
 
-CREATE VIEW keeps_with_vaultkeep_count_view AS
-SELECT 
-keeps.*,
-COUNT(vaultkeeps.id) AS kept 
+SELECT keeps.*,
+COUNT(keeps.id) AS kept 
 FROM keeps 
 LEFT JOIN vaultkeeps ON keeps.id = vaultkeeps.keep_id 
-GROUP BY(keeps.id);
+GROUP BY(keeps.id)
 
-        SELECT 
-      vaults.*,
+DROP VIEW keeps_with_vaultkeep_count_view;
+
+CREATE VIEW keeps_with_vaultkeep_count_view AS
+      SELECT
+      keeps.*,
+      COUNT(vaultkeeps.id) AS kept
+      FROM keeps
+      LEFT JOIN vaultkeeps ON keeps.id = vaultkeeps.keep_id
+      GROUP BY keeps.id;
+
+            SELECT
+      keeps.*,
       accounts.*
-      FROM vaults
-      JOIN accounts ON accounts.id = vaults.creator_id
-      WHERE accounts.id = "6758a99b25f750aecd7e2ece";
+      FROM keeps_with_vaultkeep_count_view keeps
+      JOIN accounts on accounts.id = keeps.creator_id
+      WHERE keeps.id = 356
+
       SELECT 
       vaults.*,
       accounts.*
