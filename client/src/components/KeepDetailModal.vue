@@ -5,6 +5,7 @@ import Pop from '@/utils/Pop';
 import { logger } from '@/utils/Logger';
 import { keepsService } from '@/services/KeepsService';
 import { Modal } from 'bootstrap';
+import { Keep } from '@/models/Keep';
 
 const activeKeep = computed(() => AppState.activeKeep)
 
@@ -13,6 +14,10 @@ const account = computed(() => AppState.account)
 const vaultKeeps = computed(() => AppState.vaultKeeps)
 
 const myVaults = computed(() => AppState.myVaults)
+
+const props = defineProps({
+  keep: { type: Keep }
+})
 
 // const route = useRoute()
 
@@ -62,7 +67,7 @@ async function createVaultKeep() {
             </div>
             <div class="px-3">
               <i :title="`Keep count for ${activeKeep.name}`" class="mdi mdi-alpha-k-box-outline p-1"></i>
-              <span>{{ activeKeep.kept }}</span>
+              <!-- <span>{{ props.keep.kept }}</span> -->
             </div>
           </div>
           <div class="px-2 pt-3 mt-3 px-lg-4 pt-lg-5 mt-lg-4">
